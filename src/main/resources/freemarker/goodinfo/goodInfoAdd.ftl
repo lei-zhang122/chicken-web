@@ -67,6 +67,7 @@
             </dd>
             <dt>
                 <input type="hidden" name="id" id="id" value="<#if goodInfo.id??>${goodInfo.id}</#if>">
+                <input type="hidden" name="goodStatus" id="goodStatus" value="<#if goodInfo.goodStatus??>${goodInfo.goodStatus}</#if>">
                 <input type="hidden" name="createUser" id="createUser" value="<#if goodInfo.createUser??>${goodInfo.createUser}</#if>">
                 <input type="hidden" name="createTime" id="createTime" value="<#if createTime??>${createTime}</#if>">
                 <input type="button" onclick="javascript:window.location.href='/goodInfo/goodInfoPage'" class="btn" value="返回">

@@ -20,6 +20,8 @@ public class GoodInfoRequest {
 
     private String goodDownVirtual;
 
+    private String goodStatus;
+
     private String status;
 
     private String createTime;
@@ -142,6 +144,14 @@ public class GoodInfoRequest {
         this.goodImg = goodImg;
     }
 
+    public String getGoodStatus() {
+        return goodStatus;
+    }
+
+    public void setGoodStatus(String goodStatus) {
+        this.goodStatus = goodStatus;
+    }
+
     @Override
     public String toString() {
         return "GoodInfoRequest{" +
@@ -154,6 +164,7 @@ public class GoodInfoRequest {
                 ", goodPrice='" + goodPrice + '\'' +
                 ", goodVirtual='" + goodVirtual + '\'' +
                 ", goodDownVirtual='" + goodDownVirtual + '\'' +
+                ", goodStatus='" + goodStatus + '\'' +
                 ", status='" + status + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", modifyTime='" + modifyTime + '\'' +

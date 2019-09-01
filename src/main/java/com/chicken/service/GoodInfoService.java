@@ -50,4 +50,12 @@ public class GoodInfoService {
         PageInfo result = new PageInfo(userLists);
         return result;
     }
+
+    public void updateGoodStatusById(Integer id,String goodStatus){
+        goodInfoDao.updateGoodStatusById(id,goodStatus);
+    }
+
+    public void updateGoodNumById(Integer id,Integer goodNum){
+        goodInfoDao.updateGoodNumById(id,goodNum);
+    }
 }

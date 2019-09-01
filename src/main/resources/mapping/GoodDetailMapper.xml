@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chicken.dao.GoodDetailDao" >
+  <resultMap id="BaseResultMap" type="com.chicken.model.GoodDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="good_id" property="goodId" jdbcType="INTEGER" />
+    <result column="good_num" property="goodNum" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_good_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chicken.model.GoodDetail" >
+    insert into t_good_detail (id, good_id, good_num, 
+      create_time, create_user,remark)
+    values (#{id,jdbcType=INTEGER}, #{goodId,jdbcType=INTEGER}, #{goodNum,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.chicken.model.GoodDetail" >
+    update t_good_detail
+    set good_id = #{goodId,jdbcType=INTEGER},
+      good_num = #{goodNum,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, good_id, good_num, create_time, create_user,remark
+    from t_good_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, good_id, good_num, create_time, create_user,remark
+    from t_good_detail
+  </select>
+  <select id="selectByGoodDetail" resultType="java.util.HashMap" parameterType="com.chicken.vo.GoodDetailRequest" >
+    select t.id, t.good_id, t.good_num,i.good_name,i.good_type,t.remark,t.create_time
+    from t_good_detail t
+    left join t_good_info i on i.id = t.good_id
+    WHERE 1=1
+    <if test="goodId != null and goodId !=''" >
+      AND t.good_id = #{goodId}
+    </if>
+    ORDER BY t.create_time DESC
+  </select>
+</mapper>

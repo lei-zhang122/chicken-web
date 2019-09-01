@@ -29,6 +29,8 @@ public class GoodInfo {
 
     private Integer createUser;
 
+    private String goodStatus;
+
     public Integer getId() {
         return id;
     }
@@ -131,5 +133,13 @@ public class GoodInfo {
 
     public void setGoodImg(String goodImg) {
         this.goodImg = goodImg;
+    }
+
+    public String getGoodStatus() {
+        return goodStatus;
+    }
+
+    public void setGoodStatus(String goodStatus) {
+        this.goodStatus = goodStatus;
     }
 }

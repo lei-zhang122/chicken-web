@@ -1,7 +1,9 @@
 package com.chicken.controller;
 
 import com.chicken.base.BaseController;
+import com.chicken.model.GoodDetail;
 import com.chicken.model.GoodInfo;
+import com.chicken.service.GoodDetailService;
 import com.chicken.service.GoodInfoService;
 import com.chicken.util.*;
 import com.chicken.vo.GoodInfoRequest;
@@ -38,13 +40,16 @@ public class GoodInfoController extends BaseController {
     @Autowired
     GoodInfoService goodInfoService;
 
+    @Autowired
+    GoodDetailService goodDetailService;
+
     private final ResourceLoader resourceLoader;
 
     @Value("${web.upload-path}")
     private String path;
 
     @Autowired
-    public GoodInfoController(ResourceLoader resourceLoader){
+    public GoodInfoController(ResourceLoader resourceLoader) {
         this.resourceLoader = resourceLoader;
     }
 
@@ -67,6 +72,7 @@ public class GoodInfoController extends BaseController {
         model.addAttribute("currentPage", result.getPageNum());
         model.addAttribute("goodType", info.getGoodType());
         model.addAttribute("goodName", info.getGoodName());
+        model.addAttribute("goodStatus", "0");
 
         return "goodinfo/goodInfoList";
     }
@@ -91,6 +97,7 @@ public class GoodInfoController extends BaseController {
         model.addAttribute("list", result.getList());
         model.addAttribute("countPage", result.getPages());
         model.addAttribute("currentPage", result.getPageNum());
+        model.addAttribute("goodStatus", StringUtils.isBlank(info.getGoodStatus()) ? "0" : info.getGoodStatus());
         model.addAttribute("goodType", info.getGoodType());
         model.addAttribute("goodName", info.getGoodName());
 
@@ -137,12 +144,13 @@ public class GoodInfoController extends BaseController {
      * @return
      */
     @PostMapping(value = "/insertGoodInfo")
-    public Object insertGoodInfo(@RequestParam("fileName") MultipartFile file,@RequestParam String goodType,
-                                 @RequestParam String goodName,@RequestParam String goodNum,
-                                 @RequestParam String goodPrice,@RequestParam String goodVirtual,
-                                 @RequestParam String goodDownVirtual,@RequestParam String goodDetail,
+    public Object insertGoodInfo(@RequestParam("fileName") MultipartFile file, @RequestParam String goodType,
+                                 @RequestParam String goodName, @RequestParam String goodNum,
+                                 @RequestParam String goodPrice, @RequestParam String goodVirtual,
+                                 @RequestParam String goodDownVirtual, @RequestParam String goodDetail,
                                  @RequestParam String status, @RequestParam String createUser,
                                  @RequestParam String createTime, @RequestParam String id,
+                                 @RequestParam String goodStatus,
                                  Model model) throws Exception {
 
         /**
@@ -164,6 +172,7 @@ public class GoodInfoController extends BaseController {
         goodInfoRequest.setGoodVirtual(goodVirtual);
         goodInfoRequest.setId(id);
         goodInfoRequest.setStatus(status);
+        goodInfoRequest.setGoodStatus(goodStatus);
 
         /**
          * 校验用户信息
@@ -183,8 +192,8 @@ public class GoodInfoController extends BaseController {
             String allowImgFormat = "gif,jpg,jpeg,png";
             if (allowImgFormat.contains(extname.toLowerCase())) {
                 String fileName = getFileName(file.getOriginalFilename());
-                String riqi= DateUtil.currentYYYYMMDD();
-                String paths = path+"/"+riqi;
+                String riqi = DateUtil.currentYYYYMMDD();
+                String paths = path + "/" + riqi;
                 String val = upload(file, paths, fileName);
                 goodInfoRequest.setGoodImg(val);
             }
@@ -202,29 +211,57 @@ public class GoodInfoController extends BaseController {
         goodInfo.setGoodPrice(Double.valueOf(goodInfoRequest.getGoodPrice()));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (!StringUtils.isEmpty(goodInfoRequest.getId())) {
+
+            GoodInfo goodInfoOld = this.goodInfoService.selectByPrimaryKey(Integer.valueOf(goodInfoRequest.getId()));
+
             goodInfo.setId(Integer.valueOf(goodInfoRequest.getId()));
             goodInfo.setCreateTime(sdf.parse(goodInfoRequest.getCreateTime()));
             goodInfo.setCreateUser(Integer.valueOf(goodInfoRequest.getCreateUser()));
             this.goodInfoService.updateByPrimaryKey(goodInfo);
             logger.info("商品信息，修改内容，内容ID，{}", goodInfo.getId());
+
+            if (goodInfoOld.getGoodNum() - goodInfo.getGoodNum() != 0) {
+
+                Integer num = 0;
+                if (goodInfoOld.getGoodNum() > Integer.valueOf(goodNum)) {
+                    num = (goodInfoOld.getGoodNum() - Integer.valueOf(goodNum)) * -1;
+                } else {
+                    num = Integer.valueOf(goodNum) - goodInfoOld.getGoodNum();
+                }
+
+                insertGoodDetail(goodInfo.getId(), "修改商品" + goodInfo.getGoodName() + "，商品数量从" +
+                        goodInfoOld.getGoodNum() + "修改为" + goodInfo.getGoodNum(), num);
+            }
         } else {
             goodInfo.setCreateTime(new Date());
+            //未上架
+            goodInfo.setGoodStatus("1");
             goodInfo.setCreateUser(getUserSession().getId());
             goodInfoService.insert(goodInfo);
             logger.info("商品信息，添加内容，内容={}", goodInfoRequest.toString());
+
+            insertGoodDetail(goodInfo.getId(), "添加商品" + goodInfo.getGoodName() + "，商品数量" + goodInfo.getGoodNum(), goodInfo.getGoodNum());
         }
 
+        return "redirect:/goodInfo/goodInfoPage";
+    }
 
-        GoodInfoRequest info = new GoodInfoRequest();
-        PageInfo<GoodInfo> result = this.goodInfoService.selectByGoodInfo(info, ContantUtil.DEFAULT_PAGE_NUM, ContantUtil.DEFAULT_PAGE_SIZE);
 
-        model.addAttribute("list", result.getList());
-        model.addAttribute("countPage", result.getPages());
-        model.addAttribute("currentPage", result.getPageNum());
-        model.addAttribute("goodType", info.getGoodType());
-        model.addAttribute("goodName", info.getGoodName());
-
-        return "goodinfo/goodInfoList";
+    /**
+     * 插入到记录表
+     *
+     * @param goodId
+     * @param remark
+     */
+    private void insertGoodDetail(Integer goodId, String remark, Integer goodNum) {
+        GoodDetail goodDetail = new GoodDetail();
+        goodDetail.setCreateTime(new Date());
+        goodDetail.setGoodId(goodId);
+        goodDetail.setRemark(remark);
+        goodDetail.setGoodNum(goodNum);
+        goodDetail.setCreateUser(getUserSession().getId());
+        this.goodDetailService.insert(goodDetail);
+        logger.info("商品信息成功插入到记录表，商品ID={}", goodId);
     }
 
     /**
@@ -267,10 +304,10 @@ public class GoodInfoController extends BaseController {
             file.transferTo(dest);
             return realPath;
         } catch (IllegalStateException e) {
-            logger.info("上传图片出错："+e.getMessage());
+            logger.info("上传图片出错：" + e.getMessage());
             return "";
         } catch (IOException e) {
-            logger.info("上传图片出错："+e.getMessage());
+            logger.info("上传图片出错：" + e.getMessage());
             return "";
         }
     }
@@ -278,15 +315,16 @@ public class GoodInfoController extends BaseController {
 
     /**
      * 删除图片
+     *
      * @param id
      * @return
      */
     @GetMapping("/imgDelete/{id}")
-    public Object getShopsInfo(@PathVariable Integer id){
+    public Object getShopsInfo(@PathVariable Integer id) {
 
         GoodInfo goodInfo = this.goodInfoService.selectByPrimaryKey(id);
         goodInfo.setGoodImg(null);
         goodInfoService.updateByPrimaryKey(goodInfo);
-        return "redirect:/goodInfo/goodInfoEdit/"+id;
+        return "redirect:/goodInfo/goodInfoEdit/" + id;
     }
 }

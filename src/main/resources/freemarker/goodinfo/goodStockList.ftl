@@ -17,7 +17,7 @@
 
     <h2>商品列表</h2>
     <div class="query-box">
-        <form class="form" name="fromSubmit" id="fromSubmit" action="/goodInfo/goodInfoPageList" method="post">
+        <form class="form" name="fromSubmit" id="fromSubmit" action="/goodStock/goodStockPageList" method="post">
             <input class="inline-block" type="text" name="goodType" id="goodType" value="<#if goodType??>${goodType}</#if>" placeholder="商品类型">
             <input class="inline-block" type="text" name="goodName" id="goodName" value="<#if goodName??>${goodName}</#if>" placeholder="商品名称">
             <select class="inline-block" name="goodStatus" id="goodStatus">
@@ -28,7 +28,6 @@
             </select>
             <input type="hidden" name="currentPage" id="currentPage" value="${currentPage?c}">
             <input type="submit" class="btn btn-primary" value="查询">
-            <input type="button" class="btn btn-success" onclick="javascript:window.location.href='/goodInfo/goodInfoAdd'" value="新建">
         </form>
     </div>
     <table class="table" cellspacing="0" cellpadding="0">
@@ -54,7 +53,10 @@
             <td class="text-left">${item.goodVirtual}</td>
             <td class="text-left"><#if item.goodStatus=='1'>未上架</#if><#if item.goodStatus=='2'>已上架</#if><#if item.goodStatus=='3'>没有库存</#if></td>
             <td class="text-left"><#if item.status=='1'>在用</#if><#if item.status=='0'>停用</#if></td>
-            <td><a href="/goodInfo/goodInfoEdit/${item.id}">编辑</a></td>
+            <td class="text-left">
+            <#if item.goodStatus=='1'><a href="/goodStock/goodStockEditGoodStatus/${item.id}/2">上架</a></#if>
+            <#if item.goodStatus=='2'><a href="/goodStock/goodStockEditGoodStatus/${item.id}/1">下架</a></#if>
+            <a href="/goodStock/goodStockEdit/${item.id}">修改库存</a></td>
         </tr>
         </#list>
         </tbody>
