@@ -1,0 +1,55 @@
+* {
+  padding: 0;
+  margin: 0;
+} 
+
+ul,
+ol {
+  list-style: none;
+}
+
+h1, 
+h3,
+h5,   
+h6 {
+  font-weight: normal;
+}
+
+h2, h4 { line-height: 2em; }
+h4 { font-size: 1.2rem; }
+
+input,
+select,
+textarea {
+  outline: none;
+  box-sizing: border-box;
+}
+// textarea {
+//   resize: none;
+// }
+
+a { text-decoration: none; }
+
+body {
+  font: 16px/1 "PingFang SC",Helvetica,Arial,"Hiragino Sans GB","Microsoft Yahei",STHeiTi,sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+.hidden {
+  display: none;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.text-right {
+  text-align: right;
+}

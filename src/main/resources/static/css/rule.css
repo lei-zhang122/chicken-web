@@ -1,0 +1,9 @@
+.common-btn {
+    color: #fff;
+    border: 1px solid #007bff;
+    background-color: #007bff;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: .25rem;
+}

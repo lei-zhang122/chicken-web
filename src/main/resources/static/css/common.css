@@ -1,0 +1,57 @@
+
+
+.page-button{
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+    color: #0e90d2;
+    float: left;
+    border:1px solid #0e90d2;
+    text-align: center;
+    margin-left: 2px;
+    border-radius:5px 5px 5px 5px;
+    cursor:pointer;
+}
+
+.page-button-select{
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+    color: #0e90d2;
+    background-color:#0e90d2;
+    float: left;
+    border:1px solid #0e90d2;
+    text-align: center;
+    margin-left: 2px;
+    border-radius:5px 5px 5px 5px;
+    cursor:pointer;
+}
+
+.exec{
+    cursor:pointer;
+}
+
+.login_code{
+    position: relative;
+    float: right;
+    margin-top: 15px;
+    font-size: 12px;
+    line-height: 40px;
+    border: 1px solid #169bd5;
+    color: #169bd5;
+    padding: 0 5px;
+    border-radius: 4px;
+}
+
+.login_code_span{
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    width: 100%;
+    height: 100%;
+    background: #a9a9a8;
+    color: #fff;
+    text-align: center;
+    border: 1px solid #a9a9a8;
+    border-radius: 4px;
+}

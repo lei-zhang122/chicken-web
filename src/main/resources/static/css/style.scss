@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+@import "./reset.scss";
+@import "./layout.scss";
+@import "./topbar.scss"; 
+@import "./menu.scss";
+@import "./components.scss";
+
+p { margin: 2rem 0}
+
+main { 
+  > .content {
+    border-left: 1px solid rgba(100, 100, 100, .2);
+    box-shadow: -4px 0 3px rgba(200, 200, 200, 0.1);
+  } 
+}

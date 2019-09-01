@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+.top-bar {
+  background-color: rgb(50, 50, 50);
+  color: #fff;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, .4);
+  .site-title {
+    margin-left: 1rem;
+    font-size: 1.4rem;
+  }
+  .user-info {
+    width: 7em;
+  }
+}

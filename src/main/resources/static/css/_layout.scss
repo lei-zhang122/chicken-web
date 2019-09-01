@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+$topBarHeight: 4rem;
+$leftSideWidth: 20rem;
+
+// html {
+//   overflow: hidden;
+// }
+
+body {
+  > .top-bar {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    height: $topBarHeight;
+    line-height: $topBarHeight;
+  }
+  menu,
+  main > .content {
+    padding-top: 1rem;
+  }
+  main {
+    display: flex;
+    height: calc(100vh - #{$topBarHeight});
+    padding-top: $topBarHeight;
+    > menu {
+      width: $leftSideWidth;
+      background-color: rgb(248, 249, 250);
+    }
+    .content {
+      width: 100%;
+      height: inherit;
+      overflow-y: scroll;
+    }
+  }
+}
+
+.main-container {
+  margin: 0 auto;
+  width: 96%;
+}

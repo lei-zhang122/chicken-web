@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chicken.dao.SysPermissionDao" >
+  <resultMap id="BaseResultMap" type="com.chicken.model.SysPermission" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="available" property="available" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="parent_ids" property="parentIds" jdbcType="INTEGER" />
+    <result column="permission" property="permission" jdbcType="VARCHAR" />
+    <result column="resource_type" property="resourceType" jdbcType="CHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_permission
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chicken.model.SysPermission" >
+    insert into sys_permission (id, available, name, 
+      parent_id, parent_ids, permission, 
+      resource_type, url)
+    values (#{id,jdbcType=INTEGER}, #{available,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{parentId,jdbcType=INTEGER}, #{parentIds,jdbcType=INTEGER}, #{permission,jdbcType=VARCHAR},
+      #{resourceType,jdbcType=CHAR}, #{url,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.chicken.model.SysPermission" >
+    update sys_permission
+    set available = #{available,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      parent_ids = #{parentIds,jdbcType=INTEGER},
+      permission = #{permission,jdbcType=VARCHAR},
+      resource_type = #{resourceType,jdbcType=CHAR},
+      url = #{url,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, available, name, parent_id, parent_ids, permission, resource_type, url
+    from sys_permission
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, available, name, parent_id, parent_ids, permission, resource_type, url
+    from sys_permission
+  </select>
+  <select id="selectBySysPermission" resultMap="BaseResultMap" parameterType="com.chicken.model.SysPermission" >
+    SELECT id, available, name, parent_id, parent_ids, permission, resource_type, url
+    FROM sys_permission
+    WHERE 1=1
+    <if test="id != null ">
+      AND id = #{id}
+    </if>
+    <if test="parentId != null" >
+      AND parent_id = #{parentId}
+    </if>
+    ORDER BY parent_ids DESC
+  </select>
+  <select id="selectByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select t.id, t.available, t.name, t.parent_id, t.parent_ids, t.permission, t.resource_type, t.url
+    from sys_permission t
+    LEFT JOIN sys_role_permission r on r.permission_id = t.id
+    where r.role_id = #{roleId}
+  </select>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT DISTINCT m.id,m.name,m.parent_id,m.resource_type,m.parent_ids,m.url,m.available,m.permission
+    FROM sys_permission m,sys_role_permission rm ,sys_user_role ur
+    WHERE rm.permission_id = m.id AND ur.role_id = rm.role_id AND parent_id>=0 AND m.resource_type='menu' AND  ur.uid=#{userId}
+    order by m.parent_ids asc
+  </select>
+
+  <select id="selectByUserIdAndParentId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT DISTINCT m.id,m.name,m.parent_id,m.resource_type,m.parent_ids,m.url,m.available,m.permission
+    FROM sys_permission m,sys_role_permission rm ,sys_user_role ur
+    WHERE rm.permission_id = m.id AND ur.role_id = rm.role_id AND  ur.uid=#{userId} AND m.parent_id=#{parentId}
+    order by m.parent_ids asc
+  </select>
+
+  <select id="selectByParentId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select t.id, t.available, t.name, t.parent_id, t.parent_ids, t.permission, t.resource_type, t.url
+    from sys_permission t
+    where t.parent_id = #{parentId}
+  </select>
+</mapper>

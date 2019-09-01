@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chicken.dao.UserDao" >
+  <resultMap id="BaseResultMap" type="com.chicken.model.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+    <result column="user_pwd" property="userPwd" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="phone" property="phone" jdbcType="CHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chicken.model.User" useGeneratedKeys="true" keyProperty="id">
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userName != null and userName !=''" >
+        user_name,
+      </if>
+      <if test="loginName != null and loginName !=''" >
+        login_name,
+      </if>
+      <if test="userPwd != null and userPwd !=''" >
+        user_pwd,
+      </if>
+      <if test="phone != null and phone !=''" >
+        phone,
+      </if>
+      <if test="remark != null and remark !=''" >
+        remark,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="editTime != null" >
+        edit_time
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userName != null and userName !=''" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null and loginName !=''" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null and userPwd !=''" >
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null and phone !=''" >
+        #{phone,jdbcType=CHAR},
+      </if>
+      <if test="remark != null and remark !=''" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editTime != null" >
+        #{editTime,jdbcType=TIMESTAMP}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.chicken.model.User" >
+    update t_user
+    <set>
+      <if test="userName != null and userName !=''" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null and loginName !=''" >
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null and userPwd !=''" >
+        user_pwd = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null and phone !=''" >
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="remark != null and remark !=''" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editTime != null" >
+        edit_time = #{editTime,jdbcType=TIMESTAMP}
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, user_name, login_name, user_pwd, status, phone, remark, create_user, create_time,
+    edit_time
+    from t_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, user_name, login_name, user_pwd, status, phone, remark, create_user, create_time,
+    edit_time
+    from t_user
+  </select>
+  <select id="selectByUser" resultType="java.util.HashMap" parameterType="com.chicken.vo.UserRequest" >
+    SELECT id, user_name, login_name, status, phone,create_time
+    FROM t_user
+    WHERE 1=1
+    <if test="id != null and id !='' ">
+      AND id = #{id}
+    </if>
+    <if test="userName != null and userName !=''" >
+      AND user_name LIKE CONCAT('%',#{userName},'%')
+    </if>
+    <if test="loginName != null and loginName !=''" >
+      AND login_name = #{loginName}
+    </if>
+    <if test="phone != null and phone !=''" >
+      AND phone = #{phone}
+    </if>
+    <if test="status != null" >
+      AND status = #{status}
+    </if>
+    ORDER BY create_time DESC
+  </select>
+  <select id="selectByLoginName" resultMap="BaseResultMap">
+    select id, user_name, login_name, user_pwd, status, phone, remark, create_user, create_time,
+    edit_time
+    from t_user
+    where login_name = #{loginName,jdbcType=VARCHAR} and status=1
+  </select>
+  <update id="updatePwdById" >
+    update t_user
+    SET user_pwd = #{userPwd} WHERE id = #{id}
+  </update>
+</mapper>

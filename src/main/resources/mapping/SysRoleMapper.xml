@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chicken.dao.SysRoleDao" >
+  <resultMap id="BaseResultMap" type="com.chicken.model.SysRole" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="available" property="available" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_role
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chicken.model.SysRole" >
+    insert into sys_role (id, available, description, 
+      role)
+    values (#{id,jdbcType=INTEGER}, #{available,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+      #{role,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.chicken.model.SysRole" >
+    update sys_role
+    set available = #{available,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, available, description, role
+    from sys_role
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, available, description, role
+    from sys_role
+  </select>
+  <select id="selectBySysRole" resultMap="BaseResultMap" parameterType="com.chicken.model.SysRole" >
+    SELECT id, available, description, role
+    FROM sys_role
+    WHERE 1=1
+    <if test="id != null and id !='' ">
+      AND id = #{id}
+    </if>
+    <if test="role != null and role !=''" >
+      AND role LIKE CONCAT('%',#{role},'%')
+    </if>
+    ORDER BY id DESC
+  </select>
+  <select id="selectSysRole" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select t.id, t.available, t.description, t.role
+    from sys_role t
+    LEFT JOIN sys_user_role r on r.role_id = t.id
+    where r.uid = #{userId}
+  </select>
+  <select id="selectPermissionByRole" resultType="java.util.HashMap" parameterType="java.lang.Integer" >
+    select t.permission_id
+    from sys_role_permission t
+    where t.role_id = #{roleId}
+  </select>
+  <delete id="deletePermissionRole" parameterType="java.lang.Integer" >
+    delete from sys_role_permission
+    where role_id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into sys_role_permission
+    (permission_id,role_id)
+    VALUES
+    <foreach collection="list" item="item" index="index" separator="," >
+      (
+      #{item.permissionId,jdbcType=INTEGER},
+      #{item.roleId,jdbcType=INTEGER}
+      )
+    </foreach>
+  </insert>
+  <insert id="insertUserRole" parameterType="com.chicken.model.UserRole" >
+    insert into sys_user_role (role_id, uid)
+    values (#{roleId,jdbcType=INTEGER},#{userId,jdbcType=INTEGER})
+  </insert>
+  <delete id="deleteUserRole" parameterType="java.lang.Integer" >
+    delete from sys_user_role
+    where uid = #{userId,jdbcType=INTEGER}
+  </delete>
+</mapper>
