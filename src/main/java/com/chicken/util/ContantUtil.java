@@ -1,7 +1,7 @@
 package com.chicken.util;
 
 /**
- * @program: rc-realtime-ruleengine
+ * @program:
  * @description: 常量工具类
  * @author: zhanglei11527
  * @create: 2018-07-25 10:39

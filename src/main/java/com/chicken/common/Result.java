@@ -1,9 +1,6 @@
 package com.chicken.common;
 
 
-/**
- * Created by liweibo on 17/5/23.
- */
 public class Result {
 
     // 0 -> success

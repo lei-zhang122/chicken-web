@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.chicken.dao.GoodInfoDao" >
+  <resultMap id="BaseResultMap" type="com.chicken.model.GoodInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="good_type" property="goodType" jdbcType="VARCHAR" />
+    <result column="good_name" property="goodName" jdbcType="VARCHAR" />
+    <result column="good_img" property="goodImg" jdbcType="VARCHAR" />
+    <result column="good_num" property="goodNum" jdbcType="INTEGER" />
+    <result column="good_detail" property="goodDetail" jdbcType="VARCHAR" />
+    <result column="good_price" property="goodPrice" jdbcType="DOUBLE" />
+    <result column="good_virtual" property="goodVirtual" jdbcType="INTEGER" />
+    <result column="good_down_virtual" property="goodDownVirtual" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_good_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.chicken.model.GoodInfo" >
+    insert into t_good_info (id, good_type, good_name, 
+      good_num, good_detail, good_price, 
+      good_virtual, good_down_virtual, status, 
+      create_time, modify_time, create_user,good_img
+      )
+    values (#{id,jdbcType=INTEGER}, #{goodType,jdbcType=VARCHAR}, #{goodName,jdbcType=VARCHAR}, 
+      #{goodNum,jdbcType=INTEGER}, #{goodDetail,jdbcType=VARCHAR}, #{goodPrice,jdbcType=DOUBLE}, 
+      #{goodVirtual,jdbcType=INTEGER}, #{goodDownVirtual,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER},#{goodImg,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.chicken.model.GoodInfo" >
+    update t_good_info
+    set good_type = #{goodType,jdbcType=VARCHAR},
+      good_name = #{goodName,jdbcType=VARCHAR},
+      good_num = #{goodNum,jdbcType=INTEGER},
+      good_detail = #{goodDetail,jdbcType=VARCHAR},
+      good_price = #{goodPrice,jdbcType=DOUBLE},
+      good_virtual = #{goodVirtual,jdbcType=INTEGER},
+      good_down_virtual = #{goodDownVirtual,jdbcType=INTEGER},
+      status = #{status,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      good_img = #{goodImg,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, good_type, good_name, good_num, good_detail, good_price, good_virtual, 
+    good_down_virtual, status, create_time, modify_time, create_user,good_img
+    from t_good_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, good_type, good_name, good_num, good_detail, good_price, good_virtual, 
+    good_down_virtual, status, create_time, modify_time, create_user,good_img
+    from t_good_info
+  </select>
+  <select id="selectByGoodInfo" resultMap="BaseResultMap" parameterType="com.chicken.vo.GoodInfoRequest" >
+    select id, good_type, good_name, good_num, good_detail, good_price, good_virtual,
+    good_down_virtual, status, create_time, modify_time, create_user,good_img
+    from t_good_info
+    WHERE 1=1
+    <if test="goodName != null and goodName !=''" >
+      AND good_name LIKE CONCAT('%',#{goodName},'%')
+    </if>
+    <if test="goodType != null and goodType !=''" >
+      AND good_type = #{goodType}
+    </if>
+    <if test="status != null" >
+      AND status = #{status}
+    </if>
+    ORDER BY status DESC,id DESC
+  </select>
+</mapper>

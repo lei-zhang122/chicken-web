@@ -9,9 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by liweibo on 18/7/25.
- */
 public class DateUtil {
 
     private static Logger logger = LoggerFactory.getLogger(DateUtil.class);
