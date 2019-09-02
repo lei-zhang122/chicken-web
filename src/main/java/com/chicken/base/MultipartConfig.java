@@ -8,7 +8,7 @@ import javax.servlet.MultipartConfigElement;
 import java.io.File;
 
 /**
- * Created by admin on 2019/7/1.
+ * Created by zhanglei on 2019/7/1.
  */
 @Configuration
 public class MultipartConfig {

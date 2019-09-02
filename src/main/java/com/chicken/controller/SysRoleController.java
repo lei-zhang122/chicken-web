@@ -27,8 +27,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @description: BrandInfoController
- * @author: zhanglei11527
+ * @description:
+ * @author: zhanglei
  * @create: 2018-07-30 14:13
  **/
 @Controller

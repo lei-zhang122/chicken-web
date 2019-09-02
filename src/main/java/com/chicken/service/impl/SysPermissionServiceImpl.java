@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by zhanglei11527 on 2018/7/5.
+ * Created by zhanglei on 2018/7/5.
  */
 @Service(value = "sysPermissionService")
 public class SysPermissionServiceImpl implements SysPermissionService {

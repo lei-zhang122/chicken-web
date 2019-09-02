@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @description: 登陆拦截
- * @author: zhanglei11527
+ * @author: zhanglei
  * @create: 2018-08-16 19:17
  **/
 @Configuration

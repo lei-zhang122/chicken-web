@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by zhanglei11527 on 2018/7/24.
+ * Created by zhanglei on 2018/7/24.
  */
 @RestController
 public class MainsiteErrorController implements  ErrorController {

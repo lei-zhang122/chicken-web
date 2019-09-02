@@ -7,9 +7,8 @@ import com.chicken.vo.UserRequest;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @program: rc-realtime-ruleengine
- * @description: 用户工具类
- * @author: zhanglei11527
+ * * @description: 用户工具类
+ * @author: zhanglei
  * @create: 2018-07-30 15:02
  **/
 public class UserUtils {

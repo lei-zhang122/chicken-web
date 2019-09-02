@@ -2,7 +2,7 @@ package com.chicken.vo;
 
 /**
  * @description: 用户请求参数
- * @author: zhanglei11527
+ * @author: zhanglei
  * @create: 2018-07-30 14:07
  **/
 public class UserRequest {

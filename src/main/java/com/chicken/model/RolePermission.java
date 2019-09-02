@@ -1,9 +1,9 @@
 package com.chicken.model;
 
 /**
- * @program: springboot_mybatis
+ * @program:
  * @description:
- * @author: zhanglei11527
+ * @author: zhanglei
  * @create: 2018-11-29 18:53
  **/
 public class RolePermission {

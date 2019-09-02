@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Author: yuyankang
+ * @Author: zhanglei
  * @Date: 2018/3/16 17:42
  * @Description: md5签名工具
  */
@@ -56,27 +56,5 @@ public class MD5Util {
             return Boolean.TRUE;
         }
         return Boolean.FALSE;
-    }
-
-    public static void main(String[] args) {
-
-        /**
-         * uid=qibumaiche&mobile=15319409390&userid=-1&ts=1531982333
-         *
-         * key= MD5（qibumaiche）
-         *
-         * uid=qibumaiche&mobile=15319409390&userid=-1&ts=1531982333
-         */
-
-        MD5Util md5Util = new MD5Util();
-        //参数+私钥生成的MD5值昨晚sign参数值
-        //String md5str = md5Util.md5("yingxiaozhuanti");
-        //System.out.println(md5str);
-        Long ts = System.currentTimeMillis();
-        Map map = new HashMap<>();
-        map.put("version","10");
-        map.put("orderNum","123456");
-        String md5str = md5Util.md5("101234561e10adc3949ba59abbe56e057f20f883e");
-        System.out.println(md5str);
     }
 }

@@ -15,12 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * @program: rc-realtime-ruleengine
- * @description: baseController
- * @author: zhanglei11527
- * @create: 2018-07-31 10:34
- **/
+
 public abstract class BaseController extends ApplicationObjectSupport {
 
     public Logger log = LoggerFactory.getLogger(this.getClass());

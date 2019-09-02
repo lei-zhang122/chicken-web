@@ -3,7 +3,7 @@ web.upload-path: /usr/local/OTA
 
 spring:
   application:
-    name: chicken-car
+    name: chicken-web
   profiles:
     active: dev
   servlet:

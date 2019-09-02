@@ -36,7 +36,7 @@ TT.mainPage = TT.mainPage || {};
 
 TT.mainPage.bussinessListPage = function(obj) {
 
-    var res = doAjaxGetRequest("/bussinesses/bussinessListPage", null);
+    var res = doAjaxGetRequest("", null);
     if(res=="请登陆之后，再操作。"){
         window.parent.location.href='/';
     }

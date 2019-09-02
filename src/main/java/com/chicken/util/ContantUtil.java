@@ -3,7 +3,7 @@ package com.chicken.util;
 /**
  * @program:
  * @description: 常量工具类
- * @author: zhanglei11527
+ * @author: zhanglei
  * @create: 2018-07-25 10:39
  **/
 public class ContantUtil {

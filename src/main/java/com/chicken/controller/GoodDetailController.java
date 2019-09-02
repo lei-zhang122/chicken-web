@@ -1,12 +1,10 @@
 package com.chicken.controller;
 
-import com.chicken.model.GoodDetail;
 import com.chicken.model.GoodInfo;
 import com.chicken.service.GoodDetailService;
 import com.chicken.service.GoodInfoService;
 import com.chicken.util.ContantUtil;
 import com.chicken.vo.GoodDetailRequest;
-import com.chicken.vo.GoodInfoRequest;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

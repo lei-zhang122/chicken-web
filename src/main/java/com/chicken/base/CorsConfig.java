@@ -9,9 +9,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 /**
- * @program: springboot_mybatis
+ * @program:
  * @description: Spring Boot跨域配置
- * @author: zhanglei11527
+ * @author: zhanglei
  * @create: 2019-04-11 15:51
  **/
 @Configuration

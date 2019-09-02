@@ -41,7 +41,6 @@
         <script type="text/javascript" src="../../js/common.js"></script>
         <script type="text/javascript" src="../../js/vendor.js"></script>
         <script type="text/javascript" src="../../js/mainfest.js"></script>
-        <script type="text/javascript" src="../../js/app.js"></script>
     <textarea style="letter-spacing:normal;line-height:21px;padding-top:5px;padding-bottom:5px;font-family:monospace;font-weight:400;font-size:14px;text-rendering:auto;text-transform:none;width:840px;text-indent:0px;padding-left:7px;padding-right:7px;border-width:1px;box-sizing:border-box;
       height:0 !important;
       visibility:hidden !important;

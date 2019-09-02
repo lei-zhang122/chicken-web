@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * @description: BrandInfoController
- * @author: zhanglei11527
+ * @description:
+ * @author: zhanglei
  * @create: 2018-07-30 14:13
  **/
 @Controller
