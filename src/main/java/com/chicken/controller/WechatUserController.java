@@ -163,4 +163,41 @@ public class WechatUserController extends BaseController {
 
         return CallResult.success();
     }
+
+    /**
+     * 进入查询列表页面
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping(value = "/wechatUserDialogPage")
+    public Object wechatUserDialogPage(Model model) {
+
+        WechatUserRequest info = new WechatUserRequest();
+        PageInfo<Map> result = this.wechatUserService.selectByWechatUser(info, ContantUtil.DEFAULT_PAGE_NUM, ContantUtil.DEFAULT_PAGE_SIZE);
+        saveModel(model, info, result);
+
+        return "wechatuser/wechatUserDialogList";
+    }
+
+    /**
+     * 查询列表页面
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/wechatUserDialogPageList", method = RequestMethod.POST)
+    public Object wechatUserDialogPageList(@ModelAttribute WechatUserRequest info, Model model) {
+
+        Integer pageNum = 0;
+        if (null != info.getCurrentPage() && !"0".equals(info.getCurrentPage())) {
+            pageNum = Integer.valueOf(info.getCurrentPage());
+        }
+
+        PageInfo<Map> result = this.wechatUserService.selectByWechatUser(info, pageNum, ContantUtil.DEFAULT_PAGE_SIZE);
+
+        saveModel(model, info, result);
+
+        return "wechatuser/wechatUserDialogList";
+    }
 }

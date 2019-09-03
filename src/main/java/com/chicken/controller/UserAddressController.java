@@ -88,12 +88,11 @@ public class UserAddressController extends BaseController {
      */
     private void saveModel(Model model, UserAddressRequest info, PageInfo<Map> result) {
         model.addAttribute("list", result.getList());
-        model.addAttribute("userId", StringUtils.isBlank(info.getUserId()) ? 0 : Integer.valueOf(info.getUserId()));
+        model.addAttribute("userId", info.getUserId());
+        model.addAttribute("nickName",info.getNickName());
         model.addAttribute("currentPage", result.getPageNum());
         model.addAttribute("list", result.getList());
         model.addAttribute("countPage", result.getPages());
-        List<WechatUser> selectAll = this.wechatUserService.selectAll();
-        model.addAttribute("userList", selectAll);
     }
 
     /**

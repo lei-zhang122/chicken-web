@@ -10,6 +10,8 @@ public class AccountUserRequest {
 
     private String userId;
 
+    private String nickName;
+
     private String attentCount;
 
     private String consumeCount;
@@ -86,11 +88,20 @@ public class AccountUserRequest {
         this.currentPage = currentPage;
     }
 
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
     @Override
     public String toString() {
         return "AccountUserRequest{" +
                 "id='" + id + '\'' +
-                ", userId=" + userId +
+                ", userId='" + userId + '\'' +
+                ", nickName='" + nickName + '\'' +
                 ", attentCount='" + attentCount + '\'' +
                 ", consumeCount='" + consumeCount + '\'' +
                 ", balance='" + balance + '\'' +

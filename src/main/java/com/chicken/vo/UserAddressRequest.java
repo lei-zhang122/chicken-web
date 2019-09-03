@@ -10,6 +10,8 @@ public class UserAddressRequest {
 
     private String userId;
 
+    private String nickName;
+
     private String userAddress;
 
     private String contact;
@@ -86,11 +88,20 @@ public class UserAddressRequest {
         this.phone = phone;
     }
 
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
     @Override
     public String toString() {
         return "UserAddressRequest{" +
                 "id='" + id + '\'' +
                 ", userId='" + userId + '\'' +
+                ", nickName='" + nickName + '\'' +
                 ", userAddress='" + userAddress + '\'' +
                 ", contact='" + contact + '\'' +
                 ", phone='" + phone + '\'' +

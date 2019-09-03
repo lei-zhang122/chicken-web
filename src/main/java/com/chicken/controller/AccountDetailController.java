@@ -1,17 +1,18 @@
 package com.chicken.controller;
 
 import com.chicken.base.BaseController;
+import com.chicken.model.AccountDetail;
 import com.chicken.model.AccountUser;
 import com.chicken.model.WechatUser;
+import com.chicken.service.AccountDetailService;
 import com.chicken.service.AccountUserService;
-import com.chicken.service.UserInviteService;
 import com.chicken.service.WechatUserService;
 import com.chicken.util.AccountUserUtils;
 import com.chicken.util.CallResult;
 import com.chicken.util.CodeEnum;
 import com.chicken.util.ContantUtil;
+import com.chicken.vo.AccountDetailRequest;
 import com.chicken.vo.AccountUserRequest;
-import com.chicken.vo.UserInviteRequest;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -24,7 +25,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,15 +32,16 @@ import java.util.Map;
  * @date 2019-09-02 17:42
  */
 @Controller
-@RequestMapping("userInvite")
-public class UserInviteController extends BaseController {
+@RequestMapping("accountDetail")
+public class AccountDetailController extends BaseController {
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     WechatUserService wechatUserService;
 
     @Autowired
-    UserInviteService userInviteService;
+    AccountDetailService accountDetailService;
 
     /**
      * 进入查询列表页面
@@ -48,15 +49,15 @@ public class UserInviteController extends BaseController {
      * @param model
      * @return
      */
-    @GetMapping(value = "/userInvitePage")
-    @RequiresPermissions("userInvitePage")
-    public Object userInvitePage(Model model) {
+    @GetMapping(value = "/accountDetailPage")
+    @RequiresPermissions("accountDetailPage")
+    public Object accountDetailPage(Model model) {
 
-        UserInviteRequest info = new UserInviteRequest();
-        PageInfo<Map> result = this.userInviteService.selectByUserInvite(info, ContantUtil.DEFAULT_PAGE_NUM, ContantUtil.DEFAULT_PAGE_SIZE);
+        AccountDetailRequest info = new AccountDetailRequest();
+        PageInfo<Map> result = this.accountDetailService.selectByAccountDetail(info, ContantUtil.DEFAULT_PAGE_NUM, ContantUtil.DEFAULT_PAGE_SIZE);
         saveModel(model, info, result);
 
-        return "userinvite/userInviteList";
+        return "accountdetail/accountDetailList";
     }
 
     /**
@@ -65,20 +66,19 @@ public class UserInviteController extends BaseController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/userInvitePageList", method = RequestMethod.POST)
-    @RequiresPermissions("userInvitePageList")
-    public Object userInvitePageList(@ModelAttribute UserInviteRequest info, Model model) {
+    @RequestMapping(value = "/accountDetailPageList", method = RequestMethod.POST)
+    public Object accountDetailPageList(@ModelAttribute AccountDetailRequest info, Model model) {
 
         Integer pageNum = 0;
         if (null != info.getCurrentPage() && !"0".equals(info.getCurrentPage())) {
             pageNum = Integer.valueOf(info.getCurrentPage());
         }
 
-        PageInfo<Map> result = this.userInviteService.selectByUserInvite(info, pageNum, ContantUtil.DEFAULT_PAGE_SIZE);
+        PageInfo<Map> result = this.accountDetailService.selectByAccountDetail(info, pageNum, ContantUtil.DEFAULT_PAGE_SIZE);
 
         saveModel(model, info, result);
 
-        return "userinvite/userInviteList";
+        return "accountdetail/accountDetailList";
     }
 
     /**
@@ -87,11 +87,12 @@ public class UserInviteController extends BaseController {
      * @param model
      * @param info
      */
-    private void saveModel(Model model, UserInviteRequest info, PageInfo<Map> result) {
+    private void saveModel(Model model, AccountDetailRequest info, PageInfo<Map> result) {
         model.addAttribute("list", result.getList());
+        model.addAttribute("countPage", result.getPages());
         model.addAttribute("currentPage", result.getPageNum());
         model.addAttribute("userId", info.getUserId());
-        model.addAttribute("countPage", result.getPages());
         model.addAttribute("nickName", info.getNickName());
+        model.addAttribute("detailFlag", StringUtils.isBlank(info.getDetailFlag()) ? '0' : info.getDetailFlag());
     }
 }

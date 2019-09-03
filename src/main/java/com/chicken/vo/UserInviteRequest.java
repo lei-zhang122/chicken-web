@@ -10,6 +10,8 @@ public class UserInviteRequest {
 
     private String userId;
 
+    private String nickName;
+
     private String inviteUserId;
 
     private String inviteStatus;
@@ -86,11 +88,20 @@ public class UserInviteRequest {
         this.currentPage = currentPage;
     }
 
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
     @Override
     public String toString() {
         return "UserInviteRequest{" +
                 "id='" + id + '\'' +
                 ", userId='" + userId + '\'' +
+                ", nickName='" + nickName + '\'' +
                 ", inviteUserId='" + inviteUserId + '\'' +
                 ", inviteStatus='" + inviteStatus + '\'' +
                 ", inviteTime='" + inviteTime + '\'' +

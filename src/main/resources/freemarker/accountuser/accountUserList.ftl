@@ -18,14 +18,8 @@
     <h2>用户账户列表</h2>
     <div class="query-box">
         <form class="form" name="fromSubmit" id="fromSubmit" action="/accountUser/accountUserPageList" method="post">
-            <select class="inline-block" name="userId" id="userId">
-                <option value="">请选择用户</option>
-                <#if userList?exists>
-                    <#list userList as user>
-                        <option value="${user.id}" <#if user.id == userId> selected="selected" </#if> > ${user.nickName!}</option>
-                    </#list>
-                </#if>
-            </select>
+            <input type="text" name="nickName" id="nickName" maxlength="20" value="<#if nickName??>${nickName}</#if>" onclick="getUser()">
+            <input type="hidden" name="userId" id="userId" value="<#if userId??>${userId}</#if>">
             <input type="hidden" name="currentPage" id="currentPage" value="${currentPage?c}">
             <input type="submit" class="btn btn-primary" value="查询">
         </form>
@@ -63,5 +57,18 @@
 <script src="../../js/jquery/jquery.min.3.3.1.js"></script>
 <script src="../../js/js.js"></script>
 <script src="../../js/public.js"></script>
+<script src="../../js/layer/layer.js"></script>
+<script>
+    function getUser(){
+        layer.open({
+            type: 2,
+            area: ['1400px', '750px'],
+            offset: '100px',
+            fixed: false, //不固定
+            maxmin: true,
+            content: '/wechatUser/wechatUserDialogPage'
+        });
 
+    }
+</script>
 </html>

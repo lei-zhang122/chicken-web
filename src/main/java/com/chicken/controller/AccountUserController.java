@@ -89,10 +89,8 @@ public class AccountUserController extends BaseController {
         model.addAttribute("list", result.getList());
         model.addAttribute("countPage", result.getPages());
         model.addAttribute("currentPage", result.getPageNum());
-        model.addAttribute("userId", StringUtils.isBlank(info.getUserId()) ? 0 : Integer.valueOf(info.getUserId()));
-
-        List<WechatUser> selectAll = this.wechatUserService.selectAll();
-        model.addAttribute("userList", selectAll);
+        model.addAttribute("userId", info.getUserId());
+        model.addAttribute("nickName",info.getNickName());
     }
 
     /**
