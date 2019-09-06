@@ -18,7 +18,7 @@
     <h2>用户账户列表</h2>
     <div class="query-box">
         <form class="form" name="fromSubmit" id="fromSubmit" action="/accountUser/accountUserPageList" method="post">
-            <input type="text" name="nickName" id="nickName" maxlength="20" value="<#if nickName??>${nickName}</#if>" onclick="getUser()">
+            <input type="text" name="nickName" id="nickName" maxlength="20" value="<#if nickName??>${nickName}</#if>" onclick="getUser()" placeholder="用户信息">
             <input type="hidden" name="userId" id="userId" value="<#if userId??>${userId}</#if>">
             <input type="hidden" name="currentPage" id="currentPage" value="${currentPage?c}">
             <input type="submit" class="btn btn-primary" value="查询">
@@ -33,6 +33,7 @@
             <td class="text-left">当前积分</td>
             <td class="text-left">获得积分总数</td>
             <td class="text-left">消费积分总数</td>
+            <td class="text-left">状态</td>
             <td>操作</td>
         </tr>
         </thead>
@@ -45,6 +46,7 @@
             <td class="text-left"><#if item.balance??>${item.balance}</#if></td>
             <td class="text-left"><#if item.attent_count??>${item.attent_count}</#if></td>
             <td class="text-left"><#if item.consume_count??>${item.consume_count}</#if></td>
+            <td class="text-left"><#if item.status=='1'>在用</#if><#if item.status=='0'>停用</#if></td>
             <td><a href="/accountUser/accountUserEdit/${item.id}">编辑</a></td>
         </tr>
         </#list>

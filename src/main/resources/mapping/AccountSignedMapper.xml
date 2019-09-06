@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.chicken.dao.AccountDetailDao" >
-  <resultMap id="BaseResultMap" type="com.chicken.model.AccountDetail" >
+<mapper namespace="com.chicken.dao.AccountSignedDao" >
+  <resultMap id="BaseResultMap" type="com.chicken.model.AccountSigned" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="detail_flag" property="detailFlag" jdbcType="INTEGER" />
     <result column="detail_type" property="detailType" jdbcType="VARCHAR" />
     <result column="score" property="score" jdbcType="DOUBLE" />
     <result column="score_count" property="scoreCount" jdbcType="DOUBLE" />
-    <result column="good_id" property="goodId" jdbcType="INTEGER" />
+    <result column="signed_time" property="signedTime" jdbcType="TIMESTAMP" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="CHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_account_detail
+    delete from t_account_signed
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.chicken.model.AccountDetail" >
-    insert into t_account_detail (id, detail_flag, detail_type, 
-      score, score_count, good_id,
-      remark, status, create_time,user_id
-      )
-    values (#{id,jdbcType=INTEGER}, #{detailFlag,jdbcType=INTEGER}, #{detailType,jdbcType=VARCHAR}, 
-      #{score,jdbcType=DOUBLE}, #{scoreCount,jdbcType=DOUBLE}, #{goodId,jdbcType=INTEGER},
-      #{remark,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP},#{userId,jdbcType=INTEGER}
-      )
+  <insert id="insert" parameterType="com.chicken.model.AccountSigned" >
+    insert into t_account_signed (id, detail_flag, detail_type,
+      score, score_count, signed_time,
+      remark, status, create_time,
+      user_id)
+    values (#{id,jdbcType=INTEGER}, #{detailFlag,jdbcType=INTEGER}, #{detailType,jdbcType=VARCHAR},
+      #{score,jdbcType=DOUBLE}, #{scoreCount,jdbcType=DOUBLE}, #{signedTime,jdbcType=TIMESTAMP},
+      #{remark,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{userId,jdbcType=INTEGER})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.chicken.model.AccountDetail" >
-    update t_account_detail
+  <update id="updateByPrimaryKey" parameterType="com.chicken.model.AccountSigned" >
+    update t_account_signed
     set detail_flag = #{detailFlag,jdbcType=INTEGER},
       detail_type = #{detailType,jdbcType=VARCHAR},
       score = #{score,jdbcType=DOUBLE},
       score_count = #{scoreCount,jdbcType=DOUBLE},
-      good_id = #{goodId,jdbcType=INTEGER},
+      signed_time = #{signedTime,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=VARCHAR},
       status = #{status,jdbcType=CHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -41,27 +41,23 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select id, detail_flag, detail_type, score, score_count, good_id, remark, status,
-    create_time,user_id
-    from t_account_detail
+    select id, detail_flag, detail_type, score, score_count, signed_time, remark, status,
+    create_time, user_id
+    from t_account_signed
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, detail_flag, detail_type, score, score_count, good_id, remark, status,
-    create_time,user_id
-    from t_account_detail
+    select id, detail_flag, detail_type, score, score_count, signed_time, remark, status,
+    create_time, user_id
+    from t_account_signed
   </select>
-  <select id="selectByAccountDetail" resultType="java.util.HashMap" parameterType="com.chicken.vo.AccountDetailRequest" >
-    select t.id, t.user_id, t.detail_type, t.score,t.score_count,t.remark,a.good_name,u.nick_name,u.openid,t.create_time
-    from t_account_detail t
-    left join t_good_info a on a.id = t.good_id
+  <select id="selectByAccountSigned" resultType="java.util.HashMap" parameterType="com.chicken.vo.AccountDetailRequest" >
+    select t.id, t.user_id, t.detail_type, t.score,t.score_count,t.remark,t.signed_time,u.nick_name,u.openid,t.status
+    from t_account_signed t
     left join t_wechat_user u on u.id = t.user_id
     WHERE 1=1
     <if test="userId != null and userId !=''" >
       AND t.user_id = #{userId}
-    </if>
-    <if test="goodId != null and goodId !=''" >
-      AND t.good_id = #{goodId}
     </if>
     <if test="detailType != null and detailType !=''" >
       AND t.detail_type = #{detailType}
@@ -69,12 +65,9 @@
     <if test="detailFlag != null and detailFlag !=''" >
       AND t.detail_flag = #{detailFlag}
     </if>
-    <if test="remark != null and remark !=''" >
-      AND t.remark = #{remark}
-    </if>
     <if test="status != null" >
       AND t.status = #{status}
     </if>
-    ORDER BY t.status DESC,t.id DESC
+    ORDER BY t.status DESC,t.signed_time DESC
   </select>
 </mapper>

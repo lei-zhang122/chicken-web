@@ -18,7 +18,7 @@
     <h2>用户邀请列表</h2>
     <div class="query-box">
         <form class="form" name="fromSubmit" id="fromSubmit" action="/userInvite/userInvitePageList" method="post">
-            <input type="text" name="nickName" id="nickName" maxlength="20" value="<#if nickName??>${nickName}</#if>" onclick="getUser()">
+            <input type="text" name="nickName" id="nickName" maxlength="20" value="<#if nickName??>${nickName}</#if>" onclick="getUser()" placeholder="用户信息">
             <input type="hidden" name="userId" id="userId" value="<#if userId??>${userId}</#if>">
             <input type="hidden" name="currentPage" id="currentPage" value="${currentPage?c}">
             <input type="submit" class="btn btn-primary" value="查询">

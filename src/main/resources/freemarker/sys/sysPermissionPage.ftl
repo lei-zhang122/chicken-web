@@ -20,7 +20,7 @@
     <div class="query-box">
         <form class="form" name="fromSubmit" id="fromSubmit" action="/syspermission/permissionPageList" method="post">
             <input type="hidden" name="currentPage" id="currentPage" value="${currentPage?c}">
-            <input type="hidden" name="parentId" id="parentId" value="${parentId}?c">
+            <input type="hidden" name="parentId" id="parentId" value="${parentId?c}">
             <input type="button" class="btn btn-success" onclick="javascript:window.location.href='/syspermission/sysPermissionAdd/${parentId?c}'" value="新建">
         </form>
     </div>

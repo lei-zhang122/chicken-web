@@ -5,6 +5,7 @@ import com.chicken.model.GoodDetail;
 import com.chicken.model.GoodInfo;
 import com.chicken.service.GoodDetailService;
 import com.chicken.service.GoodInfoService;
+import com.chicken.service.RedisService;
 import com.chicken.util.*;
 import com.chicken.vo.GoodInfoRequest;
 import com.github.pagehelper.PageInfo;
@@ -42,6 +43,9 @@ public class GoodInfoController extends BaseController {
 
     @Autowired
     GoodDetailService goodDetailService;
+
+    @Autowired
+    RedisService redisService;
 
     private final ResourceLoader resourceLoader;
 
@@ -186,17 +190,9 @@ public class GoodInfoController extends BaseController {
         /**
          * 上传文件
          */
+        String imgName = null;
         if (!file.isEmpty() && !StringUtils.isBlank(file.getOriginalFilename())) {
-
-            String extname = getSuffix(file.getOriginalFilename()).split("\\.")[1];
-            String allowImgFormat = "gif,jpg,jpeg,png";
-            if (allowImgFormat.contains(extname.toLowerCase())) {
-                String fileName = getFileName(file.getOriginalFilename());
-                String riqi = DateUtil.currentYYYYMMDD();
-                String paths = path + "/" + riqi;
-                String val = upload(file, paths, fileName);
-                goodInfoRequest.setGoodImg(val);
-            }
+            imgName = uploadMethod(file);
         }
 
         /**
@@ -210,6 +206,7 @@ public class GoodInfoController extends BaseController {
         goodInfo.setGoodNum(Integer.valueOf(goodInfoRequest.getGoodNum()));
         goodInfo.setGoodPrice(Double.valueOf(goodInfoRequest.getGoodPrice()));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        goodInfo.setGoodImg(imgName);
         if (!StringUtils.isEmpty(goodInfoRequest.getId())) {
 
             GoodInfo goodInfoOld = this.goodInfoService.selectByPrimaryKey(Integer.valueOf(goodInfoRequest.getId()));
@@ -231,6 +228,8 @@ public class GoodInfoController extends BaseController {
 
                 insertGoodDetail(goodInfo.getId(), "修改商品" + goodInfo.getGoodName() + "，商品数量从" +
                         goodInfoOld.getGoodNum() + "修改为" + goodInfo.getGoodNum(), num);
+
+                insertCache(goodInfo.getId(), num);
             }
         } else {
             goodInfo.setCreateTime(new Date());
@@ -241,11 +240,24 @@ public class GoodInfoController extends BaseController {
             logger.info("商品信息，添加内容，内容={}", goodInfoRequest.toString());
 
             insertGoodDetail(goodInfo.getId(), "添加商品" + goodInfo.getGoodName() + "，商品数量" + goodInfo.getGoodNum(), goodInfo.getGoodNum());
+
+            insertCache(goodInfo.getId(), goodInfo.getGoodNum());
+
         }
 
         return "redirect:/goodInfo/goodInfoPage";
     }
 
+    /**
+     * 插入到缓存
+     *
+     * @param id
+     * @param num
+     */
+    private void insertCache(Integer id, Integer num) {
+        redisService.set("good:id:" + id, num);
+        logger.info("商品{}，加入到缓存，库存数量{}", id, num);
+    }
 
     /**
      * 插入到记录表
@@ -264,52 +276,12 @@ public class GoodInfoController extends BaseController {
         logger.info("商品信息成功插入到记录表，商品ID={}", goodId);
     }
 
-    /**
-     * 获取文件后缀
-     *
-     * @param fileName
-     * @return
-     */
-    public String getSuffix(String fileName) {
-        return fileName.substring(fileName.lastIndexOf("."));
-    }
-
-    /**
-     * 生成新的文件名
-     *
-     * @param fileOriginName 源文件名
-     * @return
-     */
-    public String getFileName(String fileOriginName) {
-        return UUID.randomUUID().toString().replace("-", "")
-                + getSuffix(fileOriginName);
-    }
-
-    /**
-     * @param file     文件
-     * @param path     文件存放路径
-     * @param fileName 源文件名
-     * @return
-     */
-    public String upload(MultipartFile file, String path, String fileName) {
-        //使用原文件名
-        String realPath = path + "/" + fileName;
-        File dest = new File(realPath);
-        //判断文件父目录是否存在
-        if (!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdir();
-        }
-        try {
-            //保存文件
-            file.transferTo(dest);
-            return realPath;
-        } catch (IllegalStateException e) {
-            logger.info("上传图片出错：" + e.getMessage());
-            return "";
-        } catch (IOException e) {
-            logger.info("上传图片出错：" + e.getMessage());
-            return "";
-        }
+    public String uploadMethod(MultipartFile file) throws Exception {
+        COSClientUtil cosClientUtil = new COSClientUtil();
+        String name = cosClientUtil.uploadFile2Cos(file);
+        String imgUrl = cosClientUtil.getImgUrl(name);
+        String[] split = imgUrl.split("\\?");
+        return split[0];
     }
 
 
@@ -323,8 +295,13 @@ public class GoodInfoController extends BaseController {
     public Object getShopsInfo(@PathVariable Integer id) {
 
         GoodInfo goodInfo = this.goodInfoService.selectByPrimaryKey(id);
+        String name = goodInfo.getGoodImg();
         goodInfo.setGoodImg(null);
         goodInfoService.updateByPrimaryKey(goodInfo);
+
+        COSClientUtil cosClientUtil = new COSClientUtil();
+        String[] names = name.split("/");
+        cosClientUtil.deleteImg(names[names.length - 1]);
         return "redirect:/goodInfo/goodInfoEdit/" + id;
     }
 }

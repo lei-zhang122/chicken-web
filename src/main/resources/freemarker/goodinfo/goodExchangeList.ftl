@@ -15,38 +15,39 @@
 
 <div class="main-container">
 
-    <h2>用户地址列表</h2>
+    <h2>商品兑换列表</h2>
     <div class="query-box">
-        <form class="form" name="fromSubmit" id="fromSubmit" action="/userAddress/userAddressPageList" method="post">
-            <input type="text" name="nickName" id="nickName" maxlength="20" value="<#if nickName??>${nickName}</#if>" onclick="getUser()" placeholder="用户信息">
+        <form class="form" name="fromSubmit" id="fromSubmit" action="/goodExchange/goodExchangePageList" method="post">
+            <input type="text" name="nickName" id="nickName" maxlength="20" value="<#if nickName??>${nickName}</#if>" onclick="getUser()">
             <input type="hidden" name="userId" id="userId" value="<#if userId??>${userId}</#if>">
+            <input class="inline-block" type="text" name="remark" id="remark" value="<#if remark??>${remark}</#if>" placeholder="订单号">
+            <input type="hidden" name="detailFlag" id="detailFlag" value="${detailFlag}">
             <input type="hidden" name="currentPage" id="currentPage" value="${currentPage?c}">
             <input type="submit" class="btn btn-primary" value="查询">
         </form>
     </div>
-
     <table class="table" cellspacing="0" cellpadding="0">
         <thead>
         <tr>
             <td>序号</td>
             <td class="text-left">用户昵称</td>
-            <td class="text-left">OPENID</td>
-            <td class="text-left">联系人</td>
-            <td class="text-left">手机号</td>
-            <td class="text-left">地址</td>
-            <td>操作</td>
+            <td class="text-left">消耗积分</td>
+            <td class="text-left">当前积分</td>
+            <td class="text-left">商品信息</td>
+            <td class="text-left">备注</td>
+            <td class="text-left">兑换时间</td>
         </tr>
         </thead>
         <tbody>
         <#list list as item>
         <tr>
             <td>${item_index + 1}</td>
-            <td class="text-left">${item.nick_name}</td>
-            <td class="text-left">${item.openid}</td>
-            <td class="text-left">${item.contact}</td>
-            <td class="text-left">${item.phone}</td>
-            <td class="text-left">${item.user_address}</td>
-            <td><a href="/userAddress/userAddressEdit/${item.id}">编辑</a></td>
+            <td class="text-left"><#if item.nick_name??>${item.nick_name}<br>${item.openid}</#if></td>
+            <td class="text-left"><#if item.score??>${item.score}</#if></td>
+            <td class="text-left"><#if item.score_count??>${item.score_count}</#if></td>
+            <td class="text-left"><#if item.good_name??>${item.good_name}</#if></td>
+            <td class="text-left"><#if item.remark??>${item.remark}</#if></td>
+            <td class="text-left"><#if item.create_time??>${item.create_time?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
         </tr>
         </#list>
         </tbody>

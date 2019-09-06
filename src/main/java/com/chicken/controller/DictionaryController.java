@@ -6,6 +6,7 @@ import com.chicken.model.Dictionary;
 import com.chicken.model.WechatUser;
 import com.chicken.service.AccountUserService;
 import com.chicken.service.DictionaryService;
+import com.chicken.service.RedisService;
 import com.chicken.service.WechatUserService;
 import com.chicken.util.*;
 import com.chicken.vo.AccountUserRequest;
@@ -18,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +41,9 @@ public class DictionaryController extends BaseController {
 
     @Autowired
     DictionaryService dictionaryService;
+
+    @Autowired
+    RedisService redisService;
 
     /**
      * 进入查询列表页面
@@ -91,8 +96,8 @@ public class DictionaryController extends BaseController {
         model.addAttribute("countPage", result.getPages());
         model.addAttribute("currentPage", result.getPageNum());
         model.addAttribute("dictType", info.getDictType());
-        model.addAttribute("dictName",info.getDictName());
-        model.addAttribute("dictContent",info.getDictContent());
+        model.addAttribute("dictName", info.getDictName());
+        model.addAttribute("dictContent", info.getDictContent());
     }
 
     /**
@@ -102,7 +107,7 @@ public class DictionaryController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/dictionaryAdd/{type}")
-    public Object dictionaryAdd(Model model,@PathVariable String type) {
+    public Object dictionaryAdd(Model model, @PathVariable String type) {
 
         Dictionary dictionary = new Dictionary();
         dictionary.setStatus("1");
@@ -165,6 +170,9 @@ public class DictionaryController extends BaseController {
         dictionary.setDictOrder(Integer.valueOf(info.getDictOrder()));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (!StringUtils.isEmpty(info.getId())) {
+            //删除原来的key
+            Dictionary dictionaryOld = this.dictionaryService.selectByPrimaryKey(Integer.valueOf(info.getId()));
+            redisService.deleteKey("d:" + dictionaryOld.getDictName());
 
             dictionary.setId(Integer.valueOf(info.getId()));
             dictionary.setCreateTime(sdf.parse(info.getCreateTime()));
@@ -172,12 +180,18 @@ public class DictionaryController extends BaseController {
             dictionary.setEditTime(new Date());
             this.dictionaryService.updateByPrimaryKey(dictionary);
             logger.info("字典信息，数据修改，修改ID{}，修改人:{}", info.getId(), getUserSession().getUserName());
-        }else {
+        } else {
 
             dictionary.setCreateTime(new Date());
             dictionary.setCreateUser(getUserSession().getId());
             dictionaryService.insert(dictionary);
             logger.info("字典信息，添加内容，内容={}", info.toString());
+        }
+
+        if (info.getStatus().equals("1")) {
+            redisService.set("d:" + info.getDictName(), info.getDictContent());
+        } else {
+            redisService.deleteKey("d:" + info.getDictName());
         }
 
         return CallResult.success();

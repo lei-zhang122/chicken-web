@@ -30,6 +30,8 @@ public class AccountDetailRequest {
 
     private String nickName;
 
+    private String signedTime;
+
     public String getId() {
         return id;
     }
@@ -124,5 +126,13 @@ public class AccountDetailRequest {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public String getSignedTime() {
+        return signedTime;
+    }
+
+    public void setSignedTime(String signedTime) {
+        this.signedTime = signedTime;
     }
 }

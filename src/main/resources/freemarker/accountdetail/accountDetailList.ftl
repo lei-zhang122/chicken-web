@@ -18,12 +18,12 @@
     <h2>用户流水列表</h2>
     <div class="query-box">
         <form class="form" name="fromSubmit" id="fromSubmit" action="/accountDetail/accountDetailPageList" method="post">
-            <input type="text" name="nickName" id="nickName" maxlength="20" value="<#if nickName??>${nickName}</#if>" onclick="getUser()">
+            <input type="text" name="nickName" id="nickName" maxlength="20" value="<#if nickName??>${nickName}</#if>" onclick="getUser()" placeholder="用户信息">
             <input type="hidden" name="userId" id="userId" value="<#if userId??>${userId}</#if>">
             <select class="inline-block" name="detailFlag" id="detailFlag">
                 <option value="">请选择类型</option>
                 <option value="3" <#if detailFlag == '3'> selected="selected" </#if>>邀请好友</option>
-                <option value="3" <#if detailFlag == '4'> selected="selected" </#if>>兑换奖品</option>
+                <option value="4" <#if detailFlag == '4'> selected="selected" </#if>>兑换奖品</option>
             </select>
             <input type="hidden" name="currentPage" id="currentPage" value="${currentPage?c}">
             <input type="submit" class="btn btn-primary" value="查询">
@@ -39,6 +39,7 @@
             <td class="text-left">当前积分</td>
             <td class="text-left">商品信息</td>
             <td class="text-left">备注</td>
+            <td class="text-left">消费时间</td>
         </tr>
         </thead>
         <tbody>
@@ -51,7 +52,8 @@
             <td class="text-left"><#if item.score_count??>${item.score_count}</#if></td>
             <td class="text-left"><#if item.good_name??>${item.good_name}</#if></td>
             <td class="text-left"><#if item.remark??>${item.remark}</#if></td>
-        </tr>
+            <td class="text-left"><#if item.create_time??>${item.create_time?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+            </tr>
         </#list>
         </tbody>
     </table>

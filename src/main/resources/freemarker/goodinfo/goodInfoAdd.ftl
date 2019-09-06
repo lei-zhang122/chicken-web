@@ -48,7 +48,7 @@
             <dt>商品图片：</dt>
             <dd>
                 <input class="inline-block" type="file" name="fileName" id="fileName" placeholder="文件名称">
-                <#if goodInfo.goodImg??><a href="/goodInfo/imgDelete/${goodInfo.id}">删除</a></#if>
+                <#if goodInfo.goodImg??><a href="${goodInfo.goodImg}" target="_blank">查看</a>&nbsp;<a href="/goodInfo/imgDelete/${goodInfo.id}">删除</a></#if>
             </dd>
             <dt>状态：</dt>
             <dd>

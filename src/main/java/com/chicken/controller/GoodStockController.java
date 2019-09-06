@@ -5,6 +5,7 @@ import com.chicken.model.GoodDetail;
 import com.chicken.model.GoodInfo;
 import com.chicken.service.GoodDetailService;
 import com.chicken.service.GoodInfoService;
+import com.chicken.service.RedisService;
 import com.chicken.util.CallResult;
 import com.chicken.util.ContantUtil;
 import com.chicken.vo.GoodInfoRequest;
@@ -36,6 +37,9 @@ public class GoodStockController extends BaseController {
 
     @Autowired
     GoodDetailService goodDetailService;
+
+    @Autowired
+    RedisService redisService;
 
     /**
      * 进入查询列表页面
@@ -99,7 +103,14 @@ public class GoodStockController extends BaseController {
 
         this.goodInfoService.updateGoodStatusById(id, goodStatus);
         logger.info("商品信息，修改商品为{}状态，商品id{}", goodStatus, id);
+
+        insertCacheBystatus(id, goodStatus);
+
         return "redirect:/goodStock/goodStockPage";
+    }
+
+    private void insertCacheBystatus(Integer id, String goodStatus) {
+        redisService.set("good:status:" + id, goodStatus);
     }
 
     /**
@@ -154,7 +165,20 @@ public class GoodStockController extends BaseController {
         }
         insertGoodDetail(Integer.valueOf(id), "原库存数：" + goodInfoOld.getGoodNum() + "，库存数量修改为：" + goodNum, val);
 
+        insertCache(Integer.valueOf(id), val);
+
         return "redirect:/goodStock/goodStockPage";
+    }
+
+    /**
+     * 插入到缓存
+     *
+     * @param id
+     * @param num
+     */
+    private void insertCache(Integer id, Integer num) {
+        redisService.set("good:id:" + id, num);
+        logger.info("商品{}，加入到缓存，库存数量{}", id, num);
     }
 
 
