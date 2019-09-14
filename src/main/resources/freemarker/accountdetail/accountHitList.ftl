@@ -29,7 +29,8 @@
         <tr>
             <td>序号</td>
             <td class="text-left">用户昵称</td>
-            <td class="text-left">消耗积分</td>
+            <td class="text-left">被揍用户昵称</td>
+            <td class="text-left">获得积分</td>
             <td class="text-left">当前积分</td>
             <td class="text-left">备注</td>
             <td class="text-left">活动时间</td>
@@ -41,6 +42,7 @@
         <tr>
             <td>${item_index + 1}</td>
             <td class="text-left"><#if item.nick_name??>${item.nick_name}<br>${item.openid}</#if></td>
+            <td class="text-left"><#if item.hit_nick_name??>${item.hit_nick_name}<br>${item.hit_openid}</#if></td>
             <td class="text-left"><#if item.score??>${item.score}</#if></td>
             <td class="text-left"><#if item.score_count??>${item.score_count}</#if></td>
             <td class="text-left"><#if item.remark??>${item.remark}</#if></td>

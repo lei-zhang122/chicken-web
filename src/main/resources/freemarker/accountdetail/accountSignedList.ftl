@@ -29,7 +29,7 @@
         <tr>
             <td>序号</td>
             <td class="text-left">用户昵称</td>
-            <td class="text-left">消耗积分</td>
+            <td class="text-left">获得积分</td>
             <td class="text-left">当前积分</td>
             <td class="text-left">备注</td>
             <td class="text-left">打卡时间</td>
