@@ -35,21 +35,17 @@
             <td class="text-left">OPENID</td>
             <td class="text-left">注册来源</td>
             <td class="text-left">邀请码</td>
-            <td class="text-left">状态</td>
-            <td>操作</td>
         </tr>
         </thead>
         <tbody>
         <#list list as item>
         <tr>
             <td>${item_index + 1}</td>
-            <td><input type="radio" name="ids" id="ids" value="${item.id}&${item.nick_name}"></td>
-            <td class="text-left">${item.nick_name}</td>
-            <td class="text-left">${item.openid}</td>
-            <td class="text-left">${item.reg_source}</td>
-            <td class="text-left">${item.invite_num}</td>
-            <td class="text-left"><#if item.status=='1'>在用</#if><#if item.status=='0'>停用</#if></td>
-            <td><a href="/wechatUser/wechatUserEdit/${item.id}">编辑</a></td>
+            <td><input type="radio" name="ids" id="ids" value="${item.id}&<#if item.nick_name??>${item.nick_name}</#if>"></td>
+            <td class="text-left"><#if item.nick_name??>${item.nick_name}</#if></td>
+            <td class="text-left"><#if item.openid??>${item.openid}</#if></td>
+            <td class="text-left"><#if item.reg_source??>${item.reg_source}</#if></td>
+            <td class="text-left"><#if item.invite_num??>${item.invite_num}</#if></td>
         </tr>
         </#list>
         </tbody>

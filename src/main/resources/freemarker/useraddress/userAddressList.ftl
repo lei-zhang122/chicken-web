@@ -41,11 +41,11 @@
         <#list list as item>
         <tr>
             <td>${item_index + 1}</td>
-            <td class="text-left">${item.nick_name}</td>
-            <td class="text-left">${item.openid}</td>
-            <td class="text-left">${item.contact}</td>
-            <td class="text-left">${item.phone}</td>
-            <td class="text-left">${item.user_address}</td>
+            <td class="text-left"><#if item.nick_name??>${item.nick_name}</#if></td>
+            <td class="text-left"><#if item.openid??>${item.openid}</#if></td>
+            <td class="text-left"><#if item.contact??>${item.contact}</#if></td>
+            <td class="text-left"><#if item.phone??>${item.phone}</#if></td>
+            <td class="text-left"><#if item.user_address??>${item.user_address}</#if></td>
             <td><a href="/userAddress/userAddressEdit/${item.id}">编辑</a></td>
         </tr>
         </#list>

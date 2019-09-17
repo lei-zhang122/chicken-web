@@ -44,10 +44,10 @@
         <#list list as item>
         <tr>
             <td>${item_index + 1}</td>
-            <td class="text-left">${item.nick_name}</td>
-            <td class="text-left">${item.openid}</td>
-            <td class="text-left">${item.reg_source}</td>
-            <td class="text-left">${item.invite_num}</td>
+            <td class="text-left"><#if item.nick_name??>${item.nick_name}</#if></td>
+            <td class="text-left"><#if item.openid??>${item.openid}</#if></td>
+            <td class="text-left"><#if item.reg_source??>${item.reg_source}</#if></td>
+            <td class="text-left"><#if item.invite_num??>${item.invite_num}</#if></td>
             <td class="text-left">${item.balance}</td>
             <td class="text-left">${item.attent_count}</td>
             <td class="text-left">${item.consume_count}</td>

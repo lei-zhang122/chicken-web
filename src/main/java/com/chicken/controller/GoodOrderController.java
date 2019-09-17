@@ -136,7 +136,7 @@ public class GoodOrderController extends BaseController {
             model.addAttribute("modifyUser", u.getUserName());
         }
 
-        WechatUser wechatUser = this.wechatUserService.selectByPrimaryKey(goodOrder.getGoodId());
+        WechatUser wechatUser = this.wechatUserService.selectByPrimaryKey(goodOrder.getUserId());
         model.addAttribute("nickName", wechatUser.getNickName());
 
         List<GoodInfo> selectAll = this.goodInfoService.selectAll();
