@@ -155,6 +155,7 @@ public class AccountUserController extends BaseController {
             accountUser.setConsumeCount(Double.valueOf(info.getConsumeCount()));
             accountUser.setId(Integer.valueOf(info.getId()));
             accountUser.setCreateTime(sdf.parse(info.getCreateTime()));
+            accountUser.setStatus("1");
             this.accountUserService.updateByPrimaryKey(accountUser);
             logger.info("账户信息，数据修改，修改ID{}，修改人:{}", info.getId(), getUserSession().getUserName());
         }
