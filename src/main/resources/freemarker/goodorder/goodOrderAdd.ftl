@@ -22,6 +22,12 @@
             <dd>
                 ${goodOrder.orderNum}
             </dd>
+            <dt>收件人信息：</dt>
+            <dd>
+                ${userAddress.contact} - ${userAddress.phone}<br>
+                ${userAddress.provinceName} - ${userAddress.cityName} - ${userAddress.countyName}<br>
+                ${userAddress.userAddress} - ${userAddress.postalCode}
+            </dd>
             <dt>商品名称：</dt>
             <dd>
                 <select class="inline-block" name="goodId" id="goodId">

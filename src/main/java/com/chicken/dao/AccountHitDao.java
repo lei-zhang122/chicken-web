@@ -20,4 +20,6 @@ public interface AccountHitDao {
     int updateByPrimaryKey(AccountHit record);
 
     List<Map> selectByAccountHit(AccountDetailRequest request);
+
+    Map selectByUserIdAndHidUserId(AccountHit accountHit);
 }

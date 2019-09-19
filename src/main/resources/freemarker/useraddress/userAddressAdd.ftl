@@ -26,10 +26,27 @@
             <dd>
                 <input type="text" name="phone" id="phone" maxlength="11"  value="<#if userAddress.phone??>${userAddress.phone}</#if>">
             </dd>
+            <dt>所属省份：</dt>
+            <dd>
+                <input type="text" name="provinceName" id="provinceName" maxlength="11"  value="<#if userAddress.provinceName??>${userAddress.provinceName}</#if>">
+            </dd>
+            <dt>所属城市：</dt>
+            <dd>
+                <input type="text" name="cityName" id="cityName" maxlength="11"  value="<#if userAddress.cityName??>${userAddress.cityName}</#if>">
+            </dd>
+            <dt>所属区：</dt>
+            <dd>
+                <input type="text" name="countyName" id="countyName" maxlength="11"  value="<#if userAddress.countyName??>${userAddress.countyName}</#if>">
+            </dd>
             <dt>地址：</dt>
             <dd>
                 <input type="text" name="userAddress" id="userAddress" maxlength="200"
                        value="<#if userAddress.userAddress??>${userAddress.userAddress}</#if>">
+            </dd>
+            <dt>邮编：</dt>
+            <dd>
+                <input type="text" name="postalCode" id="postalCode" maxlength="20"
+                       value="<#if userAddress.postalCode??>${userAddress.postalCode}</#if>">
             </dd>
             <dt>状态：</dt>
             <dd>
@@ -43,6 +60,7 @@
 
             </dd>
             <dt>
+                <input type="hidden" name="nationalCode" id="nationalCode" value="<#if userAddress.nationalCode??>${userAddress.nationalCode}</#if>">
                 <input type="hidden" name="id" id="id" value="<#if userAddress.id??>${userAddress.id}</#if>">
                 <input type="hidden" name="userId" id="userId" value="<#if userAddress.userId??>${userAddress.userId}</#if>">
                 <input type="hidden" name="createTime" id="createTime" value="<#if createTime??>${createTime}</#if>">

@@ -12,6 +12,11 @@ TT.userAddress.addUserAddress = function(obj) {
     addUserAddress.contact = $("#contact").val();
     addUserAddress.phone = $("#phone").val();
     addUserAddress.userAddress = $("#userAddress").val();
+    addUserAddress.provinceName = $("#provinceName").val();
+    addUserAddress.cityName = $("#cityName").val();
+    addUserAddress.countyName = $("#countyName").val();
+    addUserAddress.nationalCode = $("#nationalCode").val();
+    addUserAddress.postalCode = $("#postalCode").val();
     addUserAddress.userId = $("#userId").val();
     addUserAddress.createTime = $("#createTime").val();
     addUserAddress.status = $("input[name='status']:checked").val();

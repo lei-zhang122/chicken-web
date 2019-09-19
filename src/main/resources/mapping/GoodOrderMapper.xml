@@ -14,6 +14,8 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="modify_user" property="modifyUser" jdbcType="INTEGER" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="address_id" property="addressId" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="DOUBLE" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_good_order
@@ -23,11 +25,11 @@
     insert into t_good_order (id, good_id, user_id, 
       exchange_time, exchange_status, order_num, 
       express_name, status, create_time, 
-      modify_user, modify_time,express_num)
+      modify_user, modify_time,express_num,address_id,score)
     values (#{id,jdbcType=INTEGER}, #{goodId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
       #{exchangeTime,jdbcType=TIMESTAMP}, #{exchangeStatus,jdbcType=CHAR}, #{orderNum,jdbcType=VARCHAR}, 
       #{expressName,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{modifyUser,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, #{expressNum,jdbcType=VARCHAR})
+      #{modifyUser,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, #{expressNum,jdbcType=VARCHAR}, #{addressId,jdbcType=INTEGER}, #{score,jdbcType=DOUBLE})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.chicken.model.GoodOrder" >
     update t_good_order
@@ -41,26 +43,29 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modify_user = #{modifyUser,jdbcType=INTEGER},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      express_num = #{expressNum,jdbcType=VARCHAR}
+      express_num = #{expressNum,jdbcType=VARCHAR},
+      address_id = #{addressId,jdbcType=INTEGER},
+      score = #{score,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select id, good_id, user_id, exchange_time, exchange_status, order_num, express_name, 
-    status, create_time, modify_user, modify_time,express_num
+    status, create_time, modify_user, modify_time,express_num,address_id,score
     from t_good_order
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, good_id, user_id, exchange_time, exchange_status, order_num, express_name, 
-    status, create_time, modify_user, modify_time,express_num
+    status, create_time, modify_user, modify_time,express_num,address_id,score
     from t_good_order
   </select>
   <select id="selectByGoodOrder" resultType="java.util.HashMap" parameterType="com.chicken.vo.GoodOrderRequest" >
-    select t.id, t.create_time, t.exchange_time,i.good_name,i.good_type,t.exchange_status,
-    t.order_num,t.express_name,a.nick_name,a.openid,t.express_num
+    select t.id, t.create_time, t.exchange_time,i.good_name,i.good_type,t.exchange_status,t.score,
+    t.order_num,t.express_name,a.nick_name,a.openid,t.express_num,s.contact,s.phone,s.province_name,s.city_name,s.county_name,s.user_address
     from t_good_order t
     left join t_good_info i on i.id = t.good_id
     left join t_wechat_user a on a.id = t.user_id
+    left join t_user_address s on s.id = t.address_id
     WHERE 1=1
     <if test="goodId != null and goodId !=''" >
       AND t.good_id = #{goodId}
@@ -87,4 +92,11 @@
     set exchange_status = #{exchangeStatus},modify_time=${exchangeTime},modify_user=${modifyUser}
     where id = #{id}
   </update>
+  <select id="selectCount" resultType="java.util.HashMap" parameterType="com.chicken.vo.GoodOrderRequest" >
+    select count(*) as zong
+    from t_good_order where 1=1
+    <if test="userId != null and userId !=''" >
+      AND user_id = #{userId}
+    </if>
+  </select>
 </mapper>

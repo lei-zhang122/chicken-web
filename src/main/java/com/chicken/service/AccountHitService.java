@@ -55,4 +55,8 @@ public class AccountHitService {
         PageInfo result = new PageInfo(userLists);
         return result;
     }
+
+    public Map selectByUserIdAndHidUserId(AccountHit accountHit){
+        return accountHitDao.selectByUserIdAndHidUserId(accountHit);
+    }
 }

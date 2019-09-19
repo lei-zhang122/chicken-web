@@ -23,6 +23,7 @@ public interface GoodOrderDao {
 
     List<Map> selectByGoodOrder(GoodOrderRequest goodOrderRequest);
 
+    Map selectCount(GoodOrderRequest goodOrderRequest);
 
     void updateExchangeStatusById(@Param("id") Integer id, @Param("exchangeStatus") String exchangeStatus, @Param("exchangeTime") Date exchangeTime, @Param("modifyUser") Integer modifyUser);
 }

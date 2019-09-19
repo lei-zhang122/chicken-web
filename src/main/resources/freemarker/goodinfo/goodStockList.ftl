@@ -15,11 +15,13 @@
 
 <div class="main-container">
 
-    <h2>商品列表</h2>
+    <h2>库存管理</h2>
     <div class="query-box">
         <form class="form" name="fromSubmit" id="fromSubmit" action="/goodStock/goodStockPageList" method="post">
-            <input class="inline-block" type="text" name="goodType" id="goodType" value="<#if goodType??>${goodType}</#if>" placeholder="商品类型">
-            <input class="inline-block" type="text" name="goodName" id="goodName" value="<#if goodName??>${goodName}</#if>" placeholder="商品名称">
+            <input class="inline-block" type="text" name="goodType" id="goodType"
+                   value="<#if goodType??>${goodType}</#if>" placeholder="商品类型">
+            <input class="inline-block" type="text" name="goodName" id="goodName"
+                   value="<#if goodName??>${goodName}</#if>" placeholder="商品名称">
             <select class="inline-block" name="goodStatus" id="goodStatus">
                 <option value="">请选择商品状态</option>
                 <option value="1" <#if goodStatus == '1'> selected="selected" </#if>>未上架</option>
@@ -45,7 +47,7 @@
         </thead>
         <tbody>
         <#list list as item>
-        <tr>
+            <tr>
             <td>${item_index + 1}</td>
             <td class="text-left">${item.goodType}</td>
             <td class="text-left">${item.goodName}</td>
@@ -54,19 +56,25 @@
             <td class="text-left"><#if item.goodStatus=='1'>未上架</#if><#if item.goodStatus=='2'>已上架</#if><#if item.goodStatus=='3'>没有库存</#if></td>
             <td class="text-left"><#if item.status=='1'>在用</#if><#if item.status=='0'>停用</#if></td>
             <td class="text-left">
-            <#if item.goodStatus=='1'><a href="/goodStock/goodStockEditGoodStatus/${item.id}/2">上架</a></#if>
-            <#if item.goodStatus=='2'><a href="/goodStock/goodStockEditGoodStatus/${item.id}/1">下架</a></#if>
-            <a href="/goodStock/goodStockEdit/${item.id}">修改库存</a></td>
-        </tr>
+            <#if item.goodStatus=='1'><a href="#" onclick="editStatus(${item.id?c},2)">上架</a></#if>
+            <#if item.goodStatus=='2'><a href="#" onclick="editStatus(${item.id?c},1)">下架</a></#if>
+                <a href="/goodStock/goodStockEdit/${item.id}">修改库存</a></td>
+            </tr>
         </#list>
         </tbody>
     </table>
-<#include "../common/page.ftl">
+    <#include "../common/page.ftl">
 </div>
 
 </body>
 <script src="../../js/jquery/jquery.min.3.3.1.js"></script>
 <script src="../../js/js.js"></script>
 <script src="../../js/public.js"></script>
-
+<script>
+    function editStatus(id, flag) {
+        if (confirm('确实要操作吗?')) {
+            window.location.href = "/goodStock/goodStockEditGoodStatus/" + id + "/" + flag;
+        }
+    }
+</script>
 </html>

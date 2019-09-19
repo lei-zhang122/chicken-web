@@ -59,4 +59,12 @@
     </if>
     ORDER BY t.status DESC,t.id DESC
   </select>
+
+  <select id="selectCount" resultType="java.util.HashMap" parameterType="com.chicken.vo.UserAddressRequest" >
+    select count(*) as zong
+    from t_user_invite where 1=1
+    <if test="userId != null and userId !=''" >
+      AND user_id = #{userId}
+    </if>
+  </select>
 </mapper>

@@ -20,4 +20,6 @@ public interface AccountUserDao {
     int updateByPrimaryKey(AccountUser record);
 
     List<Map> selectByAccountUser(AccountUserRequest accountUser);
+
+    AccountUser selectByUserId(Integer userId);
 }

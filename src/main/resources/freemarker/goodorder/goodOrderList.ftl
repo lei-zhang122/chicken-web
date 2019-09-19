@@ -47,10 +47,12 @@
             <td>序号</td>
             <td class="text-left">订单号</td>
             <td class="text-left">商品名称</td>
+            <td class="text-left">下单时间</td>
+            <td class="text-left">消耗积分</td>
             <td class="text-left">用户信息</td>
+            <td class="text-left">收件人信息</td>
             <td class="text-left">快递信息</td>
             <td class="text-left">订单状态</td>
-            <td class="text-left">下单时间</td>
             <td>操作</td>
         </tr>
         </thead>
@@ -60,10 +62,12 @@
             <td>${item_index + 1}</td>
             <td class="text-left">${item.order_num}</td>
             <td class="text-left">${item.good_type}<br>${item.good_name}</td>
+            <td class="text-left"><#if item.exchange_time??>${item.exchange_time?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
+            <td class="text-left">${item.score}</td>
             <td class="text-left">${item.nick_name}<br>${item.openid}</td>
+            <td class="text-left">${item.contact}-${item.phone}<br>${item.province_name}${item.city_name}${item.county_name}${item.user_address}</td>
             <td class="text-left"><#if item.express_name??>${item.express_name}</#if><br><#if item.express_num??>${item.express_num}</#if></td>
             <td class="text-left"><#if item.exchange_status=='1'>已下单</#if><#if item.exchange_status=='2'>已发货</#if><#if item.exchange_status=='3'>已完成</#if></td>
-            <td class="text-left"><#if item.exchange_time??>${item.exchange_time?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
             <td class="text-left">
             <a href="/goodOrder/goodOrderEdit/${item.id}">修改</a></td>
         </tr>

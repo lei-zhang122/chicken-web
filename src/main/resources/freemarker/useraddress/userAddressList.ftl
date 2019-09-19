@@ -30,10 +30,13 @@
         <tr>
             <td>序号</td>
             <td class="text-left">用户昵称</td>
-            <td class="text-left">OPENID</td>
             <td class="text-left">联系人</td>
             <td class="text-left">手机号</td>
-            <td class="text-left">地址</td>
+            <td class="text-left">所属省</td>
+            <td class="text-left">所属市</td>
+            <td class="text-left">所属区</td>
+            <td class="text-left">明细</td>
+            <td class="text-left">邮编</td>
             <td>操作</td>
         </tr>
         </thead>
@@ -41,11 +44,14 @@
         <#list list as item>
         <tr>
             <td>${item_index + 1}</td>
-            <td class="text-left"><#if item.nick_name??>${item.nick_name}</#if></td>
-            <td class="text-left"><#if item.openid??>${item.openid}</#if></td>
+            <td class="text-left"><#if item.nick_name??>${item.nick_name}</#if><br><#if item.openid??>${item.openid}</#if></td>
             <td class="text-left"><#if item.contact??>${item.contact}</#if></td>
             <td class="text-left"><#if item.phone??>${item.phone}</#if></td>
+            <td class="text-left"><#if item.province_name??>${item.province_name}</#if></td>
+            <td class="text-left"><#if item.city_name??>${item.city_name}</#if></td>
+            <td class="text-left"><#if item.county_name??>${item.county_name}</#if></td>
             <td class="text-left"><#if item.user_address??>${item.user_address}</#if></td>
+            <td class="text-left"><#if item.postal_code??>${item.postal_code}</#if></td>
             <td><a href="/userAddress/userAddressEdit/${item.id}">编辑</a></td>
         </tr>
         </#list>

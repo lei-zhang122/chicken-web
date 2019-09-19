@@ -52,7 +52,7 @@
             <td class="text-left">${item.attent_count}</td>
             <td class="text-left">${item.consume_count}</td>
             <td class="text-left"><#if item.status=='1'>在用</#if><#if item.status=='0'>停用</#if></td>
-            <td><a href="/wechatUser/wechatUserEdit/${item.id}">编辑</a></td>
+            <td><a href="/wechatUser/wechatUserEdit/${item.id}">编辑</a>&nbsp;<a href="/wechatUser/wechatUserView/${item.id}">查看</a></td>
         </tr>
         </#list>
         </tbody>

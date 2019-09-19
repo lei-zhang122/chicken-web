@@ -20,4 +20,6 @@ public interface UserInviteDao {
     int updateByPrimaryKey(UserInvite record);
 
     List<Map> selectByUserInvite(UserInviteRequest userInviteRequest);
+
+    Map selectCount(UserInviteRequest userInviteRequest);
 }

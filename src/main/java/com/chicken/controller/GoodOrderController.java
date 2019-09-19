@@ -51,6 +51,9 @@ public class GoodOrderController extends BaseController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserAddressService userAddressService;
+
     /**
      * 进入查询列表页面
      *
@@ -132,12 +135,15 @@ public class GoodOrderController extends BaseController {
         }
 
         if(null != goodOrder.getModifyUser()){
-            User u = this.userService.selectByPrimaryKey(goodOrder.getUserId());
+            User u = this.userService.selectByPrimaryKey(goodOrder.getModifyUser());
             model.addAttribute("modifyUser", u.getUserName());
         }
 
         WechatUser wechatUser = this.wechatUserService.selectByPrimaryKey(goodOrder.getUserId());
         model.addAttribute("nickName", wechatUser.getNickName());
+
+        UserAddress userAddress = this.userAddressService.selectByPrimaryKey(goodOrder.getAddressId());
+        model.addAttribute("userAddress", userAddress);
 
         List<GoodInfo> selectAll = this.goodInfoService.selectAll();
         model.addAttribute("goodInfoList", selectAll);
@@ -178,6 +184,7 @@ public class GoodOrderController extends BaseController {
         goodOrder.setModifyUser(getUserSession().getId());
         goodOrder.setGoodId(Integer.valueOf(info.getGoodId()));
         goodOrder.setUserId(Integer.valueOf(info.getUserId()));
+        goodOrder.setAddressId(Integer.valueOf(info.getAddressId()));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (!StringUtils.isEmpty(info.getId())) {
             goodOrder.setExchangeTime(sdf.parse(info.getExchangeTime()));

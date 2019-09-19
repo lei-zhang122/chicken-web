@@ -1,6 +1,7 @@
 package com.chicken.service;
 
 import com.chicken.dao.UserInviteDao;
+import com.chicken.vo.GoodOrderRequest;
 import com.chicken.vo.UserInviteRequest;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -26,5 +27,9 @@ public class UserInviteService {
         List<Map> userLists = userInviteDao.selectByUserInvite(userInviteRequest);
         PageInfo result = new PageInfo(userLists);
         return result;
+    }
+
+    public Map selectCount(UserInviteRequest userInviteRequest){
+        return userInviteDao.selectCount(userInviteRequest);
     }
 }

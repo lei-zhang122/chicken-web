@@ -74,4 +74,16 @@
     </if>
     ORDER BY t.status DESC,t.signed_time DESC
   </select>
+
+  <select id="selectByUserIdAndHidUserId" resultType="java.util.HashMap" parameterType="com.chicken.model.AccountHit" >
+    select count(*) as zong
+    from t_account_hit
+    WHERE 1=1
+    <if test="userId != null and userId !=''" >
+      AND user_id = #{userId}
+    </if>
+    <if test="hitUserId != null and hitUserId !=''" >
+      AND hit_user_id = #{hitUserId}
+    </if>
+  </select>
 </mapper>

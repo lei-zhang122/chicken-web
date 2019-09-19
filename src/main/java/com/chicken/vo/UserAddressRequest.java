@@ -24,6 +24,16 @@ public class UserAddressRequest {
 
     private String currentPage;
 
+    private String provinceName;
+
+    private String cityName;
+
+    private String countyName;
+
+    private String nationalCode;
+
+    private String postalCode;
+
     public String getId() {
         return id;
     }
@@ -96,18 +106,43 @@ public class UserAddressRequest {
         this.nickName = nickName;
     }
 
-    @Override
-    public String toString() {
-        return "UserAddressRequest{" +
-                "id='" + id + '\'' +
-                ", userId='" + userId + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", userAddress='" + userAddress + '\'' +
-                ", contact='" + contact + '\'' +
-                ", phone='" + phone + '\'' +
-                ", status='" + status + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", currentPage='" + currentPage + '\'' +
-                '}';
+    public String getProvinceName() {
+        return provinceName;
+    }
+
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getCountyName() {
+        return countyName;
+    }
+
+    public void setCountyName(String countyName) {
+        this.countyName = countyName;
+    }
+
+    public String getNationalCode() {
+        return nationalCode;
+    }
+
+    public void setNationalCode(String nationalCode) {
+        this.nationalCode = nationalCode;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 }

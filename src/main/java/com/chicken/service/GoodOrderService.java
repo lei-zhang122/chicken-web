@@ -56,4 +56,8 @@ public class GoodOrderService {
     public void updateExchangeStatusById(Integer id, String exchangeStatus, Date exchangeTime, Integer modifyUser) {
         goodOrderDao.updateExchangeStatusById(id, exchangeStatus, exchangeTime, modifyUser);
     }
+
+    public Map selectCount(GoodOrderRequest goodOrderRequest){
+        return goodOrderDao.selectCount(goodOrderRequest);
+    }
 }

@@ -58,4 +58,8 @@ public class AccountUserService {
         PageInfo result = new PageInfo(userLists);
         return result;
     }
+
+    public AccountUser selectByUserId(Integer userId) {
+        return accountUserDao.selectByUserId(userId);
+    }
 }

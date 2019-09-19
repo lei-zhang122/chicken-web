@@ -9,6 +9,11 @@
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="CHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="county_name" property="countyName" jdbcType="VARCHAR" />
+    <result column="national_code" property="nationalCode" jdbcType="VARCHAR" />
+    <result column="postal_code" property="postalCode" jdbcType="VARCHAR" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_user_address
@@ -17,10 +22,11 @@
   <insert id="insert" parameterType="com.chicken.model.UserAddress" >
     insert into t_user_address (id, user_id, user_address, 
       contact, phone, status, 
-      create_time)
+      create_time,province_name,city_name,county_name,national_code,postal_code)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userAddress,jdbcType=VARCHAR}, 
       #{contact,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
-      #{createTime,jdbcType=TIMESTAMP})
+      #{createTime,jdbcType=TIMESTAMP}, #{provinceName,jdbcType=VARCHAR},
+      #{cityName,jdbcType=VARCHAR}, #{countyName,jdbcType=VARCHAR}, #{nationalCode,jdbcType=VARCHAR}, #{postalCode,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.chicken.model.UserAddress" >
     update t_user_address
@@ -29,20 +35,25 @@
       contact = #{contact,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       status = #{status,jdbcType=CHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      province_name = #{provinceName,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      county_name = #{countyName,jdbcType=VARCHAR},
+      national_code = #{nationalCode,jdbcType=VARCHAR},
+      postal_code = #{postalCode,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select id, user_id, user_address, contact, phone, status, create_time
+    select id, user_id, user_address, contact, phone, status, create_time,province_name,city_name,county_name,national_code,postal_code
     from t_user_address
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, user_id, user_address, contact, phone, status, create_time
+    select id, user_id, user_address, contact, phone, status, create_time,province_name,city_name,county_name,national_code,postal_code
     from t_user_address
   </select>
   <select id="selectByUserAddress" resultType="java.util.HashMap" parameterType="com.chicken.vo.UserAddressRequest" >
-    select t.id, t.user_id, t.user_address, t.contact, t.phone,a.nick_name,a.openid
+    select t.id, t.user_id, t.user_address, t.contact, t.phone,a.nick_name,a.openid,t.province_name,t.city_name,t.county_name,t.postal_code
     from t_user_address t
     left join t_wechat_user a on a.id = t.user_id
     WHERE 1=1
