@@ -153,6 +153,7 @@ public class AccountUserController extends BaseController {
             accountUser.setUserId(Integer.valueOf(info.getUserId()));
             accountUser.setBalance(Double.valueOf(info.getBalance()));
             accountUser.setConsumeCount(Double.valueOf(info.getConsumeCount()));
+            accountUser.setGoodsCount(Integer.valueOf(info.getGoodsCount()));
             accountUser.setId(Integer.valueOf(info.getId()));
             accountUser.setCreateTime(sdf.parse(info.getCreateTime()));
             accountUser.setStatus("1");

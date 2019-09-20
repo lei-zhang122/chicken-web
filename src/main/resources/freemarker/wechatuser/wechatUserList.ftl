@@ -34,8 +34,8 @@
             <td class="text-left">注册来源</td>
             <td class="text-left">邀请码</td>
             <td class="text-left">当前积分</td>
-            <td class="text-left">获得积分总数</td>
-            <td class="text-left">消费积分总数</td>
+            <td class="text-left">所在城市</td>
+            <td class="text-left">兑换奖品数量</td>
             <td class="text-left">状态</td>
             <td>操作</td>
         </tr>
@@ -49,8 +49,8 @@
             <td class="text-left"><#if item.reg_source??>${item.reg_source}</#if></td>
             <td class="text-left"><#if item.invite_num??>${item.invite_num}</#if></td>
             <td class="text-left">${item.balance}</td>
-            <td class="text-left">${item.attent_count}</td>
-            <td class="text-left">${item.consume_count}</td>
+            <td class="text-left"><#if item.city_name??>${item.city_name}</#if></td>
+            <td class="text-left"><#if item.goods_count??>${item.goods_count}</#if></td>
             <td class="text-left"><#if item.status=='1'>在用</#if><#if item.status=='0'>停用</#if></td>
             <td><a href="/wechatUser/wechatUserEdit/${item.id}">编辑</a>&nbsp;<a href="/wechatUser/wechatUserView/${item.id}">查看</a></td>
         </tr>

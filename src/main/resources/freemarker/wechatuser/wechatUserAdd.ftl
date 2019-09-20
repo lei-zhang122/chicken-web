@@ -40,6 +40,10 @@
             <dd>
                 <input type="text" name="regSource" id="regSource" maxlength="20"   value="<#if wechatUser.regSource??>${wechatUser.regSource}</#if>">
             </dd>
+            <dt>所在城市：</dt>
+            <dd>
+                <input type="text" name="cityName" id="cityName" maxlength="20"   value="<#if wechatUser.cityName??>${wechatUser.cityName}</#if>">
+            </dd>
             <dt>性别：</dt>
             <dd>
                 <label >

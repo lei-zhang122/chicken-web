@@ -16,7 +16,7 @@
         <dl>
             <dt>用户昵称：</dt>
             <dd>
-                ${nickName}
+                <#if nickName??>${nickName}</#if>
             </dd>
             <dt>当前积分：</dt>
             <dd>
@@ -33,6 +33,12 @@
                 <input type="text" name="consumeCount" id="consumeCount" maxlength="10" onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
                        onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "
                        value="<#if accountUser.consumeCount??>${accountUser.consumeCount?c}</#if>">
+            </dd>
+            <dt>兑换奖品数量：</dt>
+            <dd>
+                <input type="text" name="goodsCount" id="goodsCount" maxlength="10" onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
+                       onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "
+                       value="<#if accountUser.goodsCount??>${accountUser.goodsCount?c}</#if>">
             </dd>
             <dt>
                 <input type="hidden" name="id" id="id" value="<#if accountUser.id??>${accountUser.id}</#if>">

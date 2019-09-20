@@ -20,7 +20,7 @@
             </dd>
             <dt>内容：</dt>
             <dd>
-                <input type="text" name="dictContent" id="dictContent" maxlength="100"  value="<#if dictionary.dictContent??>${dictionary.dictContent}</#if>">
+                <input type="text" name="dictContent" id="dictContent" maxlength="500"  value="<#if dictionary.dictContent??>${dictionary.dictContent}</#if>">
             </dd>
             <dt>排序：</dt>
             <dd>
@@ -40,7 +40,7 @@
             </dd>
             <dt>描述：</dt>
             <dd>
-                <textarea name="dictDetail" id="dictDetail"><#if dictionary.dictDetail??>${dictionary.dictDetail}</#if></textarea>
+                <textarea name="dictDetail" id="dictDetail" maxlength="200"><#if dictionary.dictDetail??>${dictionary.dictDetail}</#if></textarea>
             </dd>
             <dt>
                 <input type="hidden" name="id" id="id" value="<#if dictionary.id??>${dictionary.id}</#if>">

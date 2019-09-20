@@ -64,7 +64,7 @@
             <td class="text-left">${item.good_type}<br>${item.good_name}</td>
             <td class="text-left"><#if item.exchange_time??>${item.exchange_time?string('yyyy-MM-dd hh:mm:ss')}</#if></td>
             <td class="text-left">${item.score}</td>
-            <td class="text-left">${item.nick_name}<br>${item.openid}</td>
+            <td class="text-left"><#if item.nick_name??>${item.nick_name}</#if><br>${item.openid}</td>
             <td class="text-left">${item.contact}-${item.phone}<br>${item.province_name}${item.city_name}${item.county_name}${item.user_address}</td>
             <td class="text-left"><#if item.express_name??>${item.express_name}</#if><br><#if item.express_num??>${item.express_num}</#if></td>
             <td class="text-left"><#if item.exchange_status=='1'>已下单</#if><#if item.exchange_status=='2'>已发货</#if><#if item.exchange_status=='3'>已完成</#if></td>

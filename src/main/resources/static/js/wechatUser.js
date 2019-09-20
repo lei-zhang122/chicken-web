@@ -17,6 +17,7 @@ TT.wechatUser.addWechatUser = function(obj) {
     wechatUser.inviteNum = $("#inviteNum").val();
     wechatUser.regSource = $("#regSource").val();
     wechatUser.createTime = $("#createTime").val();
+    wechatUser.cityName = $("#cityName").val();
     wechatUser.status = $("input[name='status']:checked").val();
 
     var res = doAjaxPostRequest("/wechatUser/insertWechatUser", JSON.stringify(wechatUser));

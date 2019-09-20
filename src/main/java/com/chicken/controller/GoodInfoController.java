@@ -6,7 +6,10 @@ import com.chicken.model.GoodInfo;
 import com.chicken.service.GoodDetailService;
 import com.chicken.service.GoodInfoService;
 import com.chicken.service.RedisService;
-import com.chicken.util.*;
+import com.chicken.util.COSClientUtil;
+import com.chicken.util.CallResult;
+import com.chicken.util.ContantUtil;
+import com.chicken.util.GoodInfoUtils;
 import com.chicken.vo.GoodInfoRequest;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -22,11 +25,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * @author zhanglei
@@ -77,6 +77,7 @@ public class GoodInfoController extends BaseController {
         model.addAttribute("goodType", info.getGoodType());
         model.addAttribute("goodName", info.getGoodName());
         model.addAttribute("goodStatus", "0");
+        model.addAttribute("id", info.getId());
 
         return "goodinfo/goodInfoList";
     }
@@ -104,6 +105,7 @@ public class GoodInfoController extends BaseController {
         model.addAttribute("goodStatus", StringUtils.isBlank(info.getGoodStatus()) ? "0" : info.getGoodStatus());
         model.addAttribute("goodType", info.getGoodType());
         model.addAttribute("goodName", info.getGoodName());
+        model.addAttribute("id", info.getId());
 
         return "goodinfo/goodInfoList";
     }

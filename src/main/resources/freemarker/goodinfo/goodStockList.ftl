@@ -18,6 +18,8 @@
     <h2>库存管理</h2>
     <div class="query-box">
         <form class="form" name="fromSubmit" id="fromSubmit" action="/goodStock/goodStockPageList" method="post">
+            <input class="inline-block" type="text" name="id" id="id" value="<#if id??>${id}</#if>" onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
+                   onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " placeholder="商品ID">
             <input class="inline-block" type="text" name="goodType" id="goodType"
                    value="<#if goodType??>${goodType}</#if>" placeholder="商品类型">
             <input class="inline-block" type="text" name="goodName" id="goodName"
@@ -36,6 +38,7 @@
         <thead>
         <tr>
             <td>序号</td>
+            <td class="text-left">ID</td>
             <td class="text-left">商品类型</td>
             <td class="text-left">商品名称</td>
             <td class="text-left">剩余数量</td>
@@ -49,6 +52,7 @@
         <#list list as item>
             <tr>
             <td>${item_index + 1}</td>
+            <td>${item.id}</td>
             <td class="text-left">${item.goodType}</td>
             <td class="text-left">${item.goodName}</td>
             <td class="text-left">${item.goodNum}</td>

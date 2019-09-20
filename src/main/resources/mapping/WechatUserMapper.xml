@@ -13,6 +13,7 @@
     <result column="status" property="status" jdbcType="CHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="reg_source" property="regSource" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_wechat_user
@@ -21,11 +22,11 @@
   <insert id="insert" parameterType="com.chicken.model.WechatUser" >
     insert into t_wechat_user (id, nick_name, phone, 
       avatar, openid, unionid, 
-      sex, invite_num, status, create_time,reg_source
+      sex, invite_num, status, create_time,reg_source,city_name
       )
     values (#{id,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{avatar,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{unionid,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=CHAR}, #{inviteNum,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{regSource,jdbcType=VARCHAR}
+      #{sex,jdbcType=CHAR}, #{inviteNum,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{regSource,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.chicken.model.WechatUser" >
@@ -39,21 +40,22 @@
       invite_num = #{inviteNum,jdbcType=VARCHAR},
       status = #{status,jdbcType=CHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      reg_source = #{regSource,jdbcType=VARCHAR}
+      reg_source = #{regSource,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select id, nick_name, phone, avatar, openid, unionid, sex, invite_num, status, create_time,reg_source
+    select id, nick_name, phone, avatar, openid, unionid, sex, invite_num, status, create_time,reg_source,city_name
     from t_wechat_user
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, nick_name, phone, avatar, openid, unionid, sex, invite_num, status, create_time,reg_source
+    select id, nick_name, phone, avatar, openid, unionid, sex, invite_num, status, create_time,reg_source,city_name
     from t_wechat_user where status=1
   </select>
   <select id="selectByWechatUser" resultType="java.util.HashMap" parameterType="com.chicken.vo.WechatUserRequest" >
-    select t.id, t.nick_name, t.phone, t.avatar, t.openid, t.unionid, t.sex, t.invite_num,
-    t.status,t.reg_source,a.balance,a.attent_count,a.consume_count
+    select t.id, t.nick_name, t.phone, t.avatar, t.openid, t.unionid, t.sex, t.invite_num,t.city_name,
+    t.status,t.reg_source,a.balance,a.attent_count,a.consume_count,a.goods_count
     from t_wechat_user t
     left join t_account_user a on a.user_id = t.id
     WHERE 1=1

@@ -147,7 +147,8 @@ public class GoodOrderController extends BaseController {
 
         List<GoodInfo> selectAll = this.goodInfoService.selectAll();
         model.addAttribute("goodInfoList", selectAll);
-        return "goodOrder/goodOrderAdd";
+
+        return "goodorder/goodOrderAdd";
     }
 
     /**

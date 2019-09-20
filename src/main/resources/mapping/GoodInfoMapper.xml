@@ -67,6 +67,9 @@
     good_down_virtual, status, create_time, modify_time, create_user,good_img,good_status
     from t_good_info
     WHERE 1=1
+    <if test="id != null and id !=''" >
+      AND id = #{id}
+    </if>
     <if test="goodName != null and goodName !=''" >
       AND good_name LIKE CONCAT('%',#{goodName},'%')
     </if>

@@ -43,7 +43,11 @@
         <tr>
             <td>${item_index + 1}</td>
             <td class="text-left"><#if item.dictName??>${item.dictName}</#if></td>
-            <td class="text-left"><#if item.dictContent??>${item.dictContent}</#if></td>
+            <td class="text-left" title="${item.dictContent!}"><#if item.dictContent??>
+            <#if item.dictContent?length gt 15>
+                ${item.dictContent?substring(0,15)}...
+            <#else>${item.dictContent!}
+            </#if></#if></td>
             <td class="text-left"><#if item.dictOrder??>${item.dictOrder}</#if></td>
             <td class="text-left"><#if item.dictDetail??>${item.dictDetail}</#if></td>
             <td class="text-left"><#if item.status=='1'>在用</#if><#if item.status=='0'>停用</#if></td>

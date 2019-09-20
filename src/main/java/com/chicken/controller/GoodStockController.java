@@ -60,6 +60,7 @@ public class GoodStockController extends BaseController {
         model.addAttribute("goodType", info.getGoodType());
         model.addAttribute("goodName", info.getGoodName());
         model.addAttribute("goodStatus", "0");
+        model.addAttribute("id", info.getId());
 
         return "goodinfo/goodStockList";
     }
@@ -87,6 +88,7 @@ public class GoodStockController extends BaseController {
         model.addAttribute("goodStatus", StringUtils.isBlank(info.getGoodStatus()) ? "0" : info.getGoodStatus());
         model.addAttribute("goodType", info.getGoodType());
         model.addAttribute("goodName", info.getGoodName());
+        model.addAttribute("id", info.getId());
 
         return "goodinfo/goodStockList";
     }

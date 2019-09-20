@@ -24,6 +24,8 @@ public class AccountUserRequest {
 
     private String currentPage;
 
+    private String goodsCount;
+
     public String getId() {
         return id;
     }
@@ -96,6 +98,14 @@ public class AccountUserRequest {
         this.nickName = nickName;
     }
 
+    public String getGoodsCount() {
+        return goodsCount;
+    }
+
+    public void setGoodsCount(String goodsCount) {
+        this.goodsCount = goodsCount;
+    }
+
     @Override
     public String toString() {
         return "AccountUserRequest{" +
@@ -108,6 +118,7 @@ public class AccountUserRequest {
                 ", status='" + status + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", currentPage='" + currentPage + '\'' +
+                ", goodsCount='" + goodsCount + '\'' +
                 '}';
     }
 }

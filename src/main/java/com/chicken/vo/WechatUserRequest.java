@@ -30,6 +30,8 @@ public class WechatUserRequest {
 
     private String regSource;
 
+    private String cityName;
+
     public String getId() {
         return id;
     }
@@ -126,6 +128,14 @@ public class WechatUserRequest {
         this.regSource = regSource;
     }
 
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
     @Override
     public String toString() {
         return "WechatUserRequest{" +
@@ -141,6 +151,7 @@ public class WechatUserRequest {
                 ", createTime='" + createTime + '\'' +
                 ", currentPage='" + currentPage + '\'' +
                 ", regSource='" + regSource + '\'' +
+                ", cityName='" + cityName + '\'' +
                 '}';
     }
 }

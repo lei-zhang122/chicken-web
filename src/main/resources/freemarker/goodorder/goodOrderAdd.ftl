@@ -16,7 +16,7 @@
         <dl>
             <dt>用户昵称：</dt>
             <dd>
-                ${nickName}
+                <#if nickName??>${nickName}</#if>
             </dd>
             <dt>订单号：</dt>
             <dd>

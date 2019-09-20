@@ -12,10 +12,11 @@ TT.accountUser.addAccountUser = function(obj) {
     accountUser.balance = $("#balance").val();
     accountUser.attentCount = $("#attentCount").val();
     accountUser.consumeCount = $("#consumeCount").val();
+    accountUser.goodsCount = $("#goodsCount").val();
     accountUser.userId = $("#userId").val();
     accountUser.createTime = $("#createTime").val();
     accountUser.status = $("input[name='status']:checked").val();
-
+console.log(accountUser);
     var res = doAjaxPostRequest("/accountUser/insertAccountUser", JSON.stringify(accountUser));
     if(res == null) {
         alert("操作成功");
