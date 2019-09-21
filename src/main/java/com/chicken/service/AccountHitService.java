@@ -59,4 +59,8 @@ public class AccountHitService {
     public Map selectByUserIdAndHidUserId(AccountHit accountHit){
         return accountHitDao.selectByUserIdAndHidUserId(accountHit);
     }
+
+    public List<Map> selectHitMyCount(AccountDetailRequest request){
+        return accountHitDao.selectHitMyCount(request);
+    }
 }

@@ -32,6 +32,12 @@ public class AccountDetailRequest {
 
     private String signedTime;
 
+    private Integer hitUserId;
+
+    private String startTime;
+
+    private String endTime;
+
     public String getId() {
         return id;
     }
@@ -134,5 +140,29 @@ public class AccountDetailRequest {
 
     public void setSignedTime(String signedTime) {
         this.signedTime = signedTime;
+    }
+
+    public Integer getHitUserId() {
+        return hitUserId;
+    }
+
+    public void setHitUserId(Integer hitUserId) {
+        this.hitUserId = hitUserId;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 }

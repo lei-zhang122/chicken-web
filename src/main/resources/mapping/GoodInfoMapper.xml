@@ -94,4 +94,7 @@
     set good_num = #{goodNum}
     where id = #{id}
   </update>
+  <select id="selectMinVirtual" resultType="java.util.Map" >
+    select min(t.good_down_virtual) as zong,t.good_name from t_good_info t where t.good_num>1 group by t.good_name order by zong asc limit 1
+  </select>
 </mapper>

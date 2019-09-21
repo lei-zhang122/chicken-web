@@ -20,4 +20,8 @@ public interface AccountSignedDao {
     int updateByPrimaryKey(AccountSigned record);
 
     List<Map> selectByAccountSigned(AccountDetailRequest request);
+
+    Long selectCountByTips();
+
+    List<Map> selectTips();
 }

@@ -70,4 +70,16 @@
     </if>
     ORDER BY t.status DESC,t.signed_time DESC
   </select>
+  <select id="selectCountByTips" resultType="java.lang.Long" >
+    select Count(*) as zong from (
+      select t.user_id,DATEDIFF(now(),max(t.signed_time)) AS diffDate from t_account_signed t
+      group by t.user_id
+      ) tab
+  </select>
+  <select id="selectTips" resultType="java.util.HashMap" >
+    select t.user_id,u.openid,r.balance,DATEDIFF(now(),max(t.signed_time)) AS diffDate from t_account_signed t
+    left join t_wechat_user u on u.id = t.user_id
+    left join t_account_user r on r.id = t.user_id
+    group by t.user_id,u.openid,r.balance
+  </select>
 </mapper>

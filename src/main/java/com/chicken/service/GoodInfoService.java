@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class GoodInfoService {
@@ -57,5 +58,9 @@ public class GoodInfoService {
 
     public void updateGoodNumById(Integer id,Integer goodNum){
         goodInfoDao.updateGoodNumById(id,goodNum);
+    }
+
+    public Map selectMinVirtual(){
+        return goodInfoDao.selectMinVirtual();
     }
 }

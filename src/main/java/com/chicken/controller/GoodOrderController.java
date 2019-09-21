@@ -1,5 +1,6 @@
 package com.chicken.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chicken.base.BaseController;
 import com.chicken.model.*;
 import com.chicken.service.*;
@@ -16,9 +17,14 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -53,6 +59,9 @@ public class GoodOrderController extends BaseController {
 
     @Autowired
     UserAddressService userAddressService;
+
+    @Autowired
+    RestTemplate restTemplate;
 
     /**
      * 进入查询列表页面
@@ -130,11 +139,11 @@ public class GoodOrderController extends BaseController {
         model.addAttribute("createTime", sdf.format(goodOrder.getCreateTime()));
         model.addAttribute("exchangeTime", sdf.format(goodOrder.getExchangeTime()));
 
-        if(null != goodOrder.getModifyTime()){
+        if (null != goodOrder.getModifyTime()) {
             model.addAttribute("modifyTime", sdf.format(goodOrder.getModifyTime()));
         }
 
-        if(null != goodOrder.getModifyUser()){
+        if (null != goodOrder.getModifyUser()) {
             User u = this.userService.selectByPrimaryKey(goodOrder.getModifyUser());
             model.addAttribute("modifyUser", u.getUserName());
         }
@@ -195,6 +204,39 @@ public class GoodOrderController extends BaseController {
             logger.info("商品订单信息，修改内容，内容ID，{}", goodOrder.getId());
         }
 
+        //已下单
+        if (goodOrder.getExchangeStatus().equals("2")) {
+            WechatUser wechatUser = this.wechatUserService.selectByPrimaryKey(goodOrder.getUserId());
+            GoodInfo goodInfo = this.goodInfoService.selectByPrimaryKey(goodOrder.getGoodId());
+            pushMsg(wechatUser.getOpenid(),ContantUtil.INVOKE_URL,goodInfo.getGoodName(),goodOrder.getOrderNum(),goodOrder.getExpressName()+" ("+goodOrder.getExpressNum()+")");
+        }
+
         return CallResult.success();
+    }
+
+    /**
+     * 发送消息
+     *
+     * @return
+     */
+    private ResponseEntity<String> pushMsg(String openid, String url, String goodsName, String orderNum, String express) {
+        ResponseEntity<String> responseEntity = null;
+        try {
+            String content = "您好，您兑换的奖品" + goodsName + "已经发货，物流信息：" + express + "，您的兑换单号是" + orderNum + "，请登录揍小鸡小程序查看订单详情。";
+            logger.info("开始调用接口，接口地址：{}", url);
+            HttpHeaders headers = new HttpHeaders();
+            MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
+            headers.setContentType(type);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("openid", openid);
+            jsonObject.put("content", content);
+            logger.info("调用接口，传入参数{}", jsonObject.toJSONString());
+            HttpEntity<String> entity = new HttpEntity<>(jsonObject.toJSONString(), headers);
+            responseEntity = restTemplate.postForEntity(url, entity, String.class);
+            logger.info("调用接口，返回结果:" + responseEntity.getBody());
+        } catch (Exception e) {
+            logger.info("调用接口失败:{}", e.getMessage());
+        }
+        return responseEntity;
     }
 }

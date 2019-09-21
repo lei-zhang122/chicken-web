@@ -53,6 +53,10 @@
     select id, nick_name, phone, avatar, openid, unionid, sex, invite_num, status, create_time,reg_source,city_name
     from t_wechat_user where status=1
   </select>
+  <select id="selectCount" resultType="java.lang.Long" >
+    select count(*)
+    from t_wechat_user where status=1
+  </select>
   <select id="selectByWechatUser" resultType="java.util.HashMap" parameterType="com.chicken.vo.WechatUserRequest" >
     select t.id, t.nick_name, t.phone, t.avatar, t.openid, t.unionid, t.sex, t.invite_num,t.city_name,
     t.status,t.reg_source,a.balance,a.attent_count,a.consume_count,a.goods_count

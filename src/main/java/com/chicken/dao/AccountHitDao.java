@@ -22,4 +22,6 @@ public interface AccountHitDao {
     List<Map> selectByAccountHit(AccountDetailRequest request);
 
     Map selectByUserIdAndHidUserId(AccountHit accountHit);
+
+    List<Map> selectHitMyCount(AccountDetailRequest request);
 }

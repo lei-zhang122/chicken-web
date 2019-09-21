@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface GoodInfoDao {
@@ -36,4 +37,10 @@ public interface GoodInfoDao {
      * @return
      */
     int updateGoodNumById(@Param("id") Integer id, @Param("goodNum") Integer goodNum);
+
+    /**
+     * 查询需要最少的积分商品
+     * @return
+     */
+    Map selectMinVirtual();
 }

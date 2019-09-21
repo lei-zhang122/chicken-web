@@ -125,17 +125,17 @@ public class DateUtil {
     }
 
     /**
-     * 获得指定日期的后一天 yyyy-MM-dd
+     * 获得指定日期的某一天 yyyy-MM-dd
      *
      * @param date
      * @return
      */
-    public static String getSpecifiedDayAfter(Date date, String dateFormat) {
+    public static String getSpecifiedDayAfter(Date date, String dateFormat,int d) {
         if (date == null) return null;
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         int day = c.get(Calendar.DATE);
-        c.set(Calendar.DATE, day + 1);
+        c.set(Calendar.DATE, day + d);
         String dayAfter = new SimpleDateFormat(dateFormat).format(c.getTime());
         return dayAfter;
     }

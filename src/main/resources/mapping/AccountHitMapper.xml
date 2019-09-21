@@ -86,4 +86,19 @@
       AND hit_user_id = #{hitUserId}
     </if>
   </select>
+  <select id="selectHitMyCount" resultType="java.util.HashMap" parameterType="com.chicken.vo.AccountDetailRequest" >
+    select t.user_id,u.nick_name,count(*) as zong from t_account_hit t
+    left join t_wechat_user u on u.id = t.user_id
+    WHERE 1=1
+    <if test="hitUserId != null" >
+      AND t.hit_user_id = #{hitUserId}
+    </if>
+    <if test="startTime != null and startTime !=''" >
+      AND DATE_FORMAT(t.signed_time,'%Y-%d-%m') &gt;= DATE_FORMAT(#{startTime},'%Y-%d-%m')
+    </if>
+    <if test="endTime != null and endTime !=''" >
+      AND DATE_FORMAT(t.signed_time,'%Y-%d-%m') &lt;= DATE_FORMAT(#{endTime},'%Y-%d-%m')
+    </if>
+    group by t.user_id,u.nick_name order by zong
+  </select>
 </mapper>

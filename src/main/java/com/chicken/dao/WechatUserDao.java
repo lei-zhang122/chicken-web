@@ -19,6 +19,7 @@ public interface WechatUserDao {
 
     int updateByPrimaryKey(WechatUser record);
 
+    Long selectCount();
 
     List<Map> selectByWechatUser(WechatUserRequest request);
 }

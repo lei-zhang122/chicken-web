@@ -47,6 +47,16 @@ public class WechatUserService {
         return wechatUserDao.updateByPrimaryKey(record);
     }
 
+    public Long selectCount(){
+        return wechatUserDao.selectCount();
+    }
+
+    public PageInfo<WechatUser> selectUserByPage(int pageNum, int pageSize){
+        PageHelper.startPage(pageNum, pageSize);
+        List<WechatUser> userList = wechatUserDao.selectAll();
+        PageInfo result = new PageInfo(userList);
+        return result;
+    }
 
     public PageInfo<Map> selectByWechatUser(WechatUserRequest wechatUserRequest, int pageNum, int pageSize) {
         //将参数传给这个方法就可以实现物理分页了
