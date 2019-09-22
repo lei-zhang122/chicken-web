@@ -66,6 +66,7 @@
                 <textarea name="goodDetail" id="goodDetail"><#if goodInfo.goodDetail??>${goodInfo.goodDetail}</#if></textarea>
             </dd>
             <dt>
+                <input type="hidden" name="goodImg" id="goodImg" value="<#if goodInfo.goodImg??>${goodInfo.goodImg}</#if>">
                 <input type="hidden" name="id" id="id" value="<#if goodInfo.id??>${goodInfo.id}</#if>">
                 <input type="hidden" name="goodStatus" id="goodStatus" value="<#if goodInfo.goodStatus??>${goodInfo.goodStatus}</#if>">
                 <input type="hidden" name="createUser" id="createUser" value="<#if goodInfo.createUser??>${goodInfo.createUser}</#if>">

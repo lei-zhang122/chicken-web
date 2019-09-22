@@ -120,7 +120,7 @@ public class GoodInfoController extends BaseController {
     public Object addGoodInfo(Model model) {
 
         GoodInfo goodInfo = new GoodInfo();
-        goodInfo.setStatus("0");
+        goodInfo.setStatus("1");
         model.addAttribute("goodInfo", goodInfo);
 
         return "goodinfo/goodInfoAdd";
@@ -156,7 +156,7 @@ public class GoodInfoController extends BaseController {
                                  @RequestParam String goodDownVirtual, @RequestParam String goodDetail,
                                  @RequestParam String status, @RequestParam String createUser,
                                  @RequestParam String createTime, @RequestParam String id,
-                                 @RequestParam String goodStatus,
+                                 @RequestParam String goodStatus, @RequestParam String goodImg,
                                  Model model) throws Exception {
 
         /**
@@ -179,6 +179,7 @@ public class GoodInfoController extends BaseController {
         goodInfoRequest.setId(id);
         goodInfoRequest.setStatus(status);
         goodInfoRequest.setGoodStatus(goodStatus);
+        goodInfoRequest.setGoodImg(goodImg);
 
         /**
          * 校验用户信息
@@ -208,7 +209,9 @@ public class GoodInfoController extends BaseController {
         goodInfo.setGoodNum(Integer.valueOf(goodInfoRequest.getGoodNum()));
         goodInfo.setGoodPrice(Double.valueOf(goodInfoRequest.getGoodPrice()));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        goodInfo.setGoodImg(imgName);
+        if (imgName != null) {
+            goodInfo.setGoodImg(imgName);
+        }
         if (!StringUtils.isEmpty(goodInfoRequest.getId())) {
 
             GoodInfo goodInfoOld = this.goodInfoService.selectByPrimaryKey(Integer.valueOf(goodInfoRequest.getId()));
@@ -219,6 +222,7 @@ public class GoodInfoController extends BaseController {
             this.goodInfoService.updateByPrimaryKey(goodInfo);
             logger.info("商品信息，修改内容，内容ID，{}", goodInfo.getId());
 
+            insertCache(goodInfo.getId(), goodInfo.getGoodNum());
             if (goodInfoOld.getGoodNum() - goodInfo.getGoodNum() != 0) {
 
                 Integer num = 0;
@@ -233,6 +237,7 @@ public class GoodInfoController extends BaseController {
 
                 insertCache(goodInfo.getId(), num);
             }
+
         } else {
             goodInfo.setCreateTime(new Date());
             //未上架
