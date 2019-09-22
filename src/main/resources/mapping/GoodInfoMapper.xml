@@ -60,7 +60,7 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, good_type, good_name, good_num, good_detail, good_price, good_virtual, 
     good_down_virtual, status, create_time, modify_time, create_user,good_img,good_status
-    from t_good_info where status=0
+    from t_good_info where status=1
   </select>
   <select id="selectByGoodInfo" resultMap="BaseResultMap" parameterType="com.chicken.vo.GoodInfoRequest" >
     select id, good_type, good_name, good_num, good_detail, good_price, good_virtual,

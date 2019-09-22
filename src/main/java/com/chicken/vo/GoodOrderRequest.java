@@ -36,6 +36,8 @@ public class GoodOrderRequest {
 
     private String addressId;
 
+    private String score;
+
     public String getId() {
         return id;
     }
@@ -156,6 +158,14 @@ public class GoodOrderRequest {
         this.addressId = addressId;
     }
 
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
+    }
+
     @Override
     public String toString() {
         return "GoodOrderRequest{" +
@@ -174,6 +184,7 @@ public class GoodOrderRequest {
                 ", nickName='" + nickName + '\'' +
                 ", expressNum='" + expressNum + '\'' +
                 ", addressId='" + addressId + '\'' +
+                ", score='" + score + '\'' +
                 '}';
     }
 }

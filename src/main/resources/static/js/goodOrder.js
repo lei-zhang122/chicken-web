@@ -17,6 +17,8 @@ TT.goodOrder.addGoodOrder = function(obj) {
     goodOrder.expressName = $("#expressName").val();
     goodOrder.expressNum = $("#expressNum").val();
     goodOrder.goodId = $("#goodId").val();
+    goodOrder.addressId = $("#addressId").val();
+    goodOrder.score = $("#score").val();
     goodOrder.status = $("#status").val();
 
     var res = doAjaxPostRequest("/goodOrder/insertGoodOrder", JSON.stringify(goodOrder));

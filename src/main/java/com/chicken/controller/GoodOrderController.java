@@ -154,8 +154,8 @@ public class GoodOrderController extends BaseController {
         UserAddress userAddress = this.userAddressService.selectByPrimaryKey(goodOrder.getAddressId());
         model.addAttribute("userAddress", userAddress);
 
-        List<GoodInfo> selectAll = this.goodInfoService.selectAll();
-        model.addAttribute("goodInfoList", selectAll);
+        GoodInfo goodInfo = this.goodInfoService.selectByPrimaryKey(goodOrder.getGoodId());
+        model.addAttribute("goodInfo", goodInfo);
 
         return "goodorder/goodOrderAdd";
     }
@@ -195,6 +195,7 @@ public class GoodOrderController extends BaseController {
         goodOrder.setGoodId(Integer.valueOf(info.getGoodId()));
         goodOrder.setUserId(Integer.valueOf(info.getUserId()));
         goodOrder.setAddressId(Integer.valueOf(info.getAddressId()));
+        goodOrder.setScore(Double.valueOf(info.getScore()));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (!StringUtils.isEmpty(info.getId())) {
             goodOrder.setExchangeTime(sdf.parse(info.getExchangeTime()));

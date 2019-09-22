@@ -28,16 +28,13 @@
                 ${userAddress.provinceName} - ${userAddress.cityName} - ${userAddress.countyName}<br>
                 ${userAddress.userAddress} - ${userAddress.postalCode}
             </dd>
+            <dt>消耗积分：</dt>
+            <dd>
+                ${goodOrder.score}
+            </dd>
             <dt>商品名称：</dt>
             <dd>
-                <select class="inline-block" name="goodId" id="goodId">
-                    <option value="">请选择商品信息</option>
-                    <#if goodInfoList?exists>
-                        <#list goodInfoList as info>
-                            <option value="${info.id}" <#if info.id == goodOrder.goodId> selected="selected" </#if> > ${info.goodName!}</option>
-                        </#list>
-                    </#if>
-                </select>
+                ${goodInfo.goodName}
             </dd>
             <dt>快递单号：</dt>
             <dd>
@@ -72,6 +69,9 @@
             <dt>
                 <input type="hidden" name="id" id="id" value="<#if goodOrder.id??>${goodOrder.id}</#if>">
                 <input type="hidden" name="status" id="status" value="<#if goodOrder.status??>${goodOrder.status}</#if>">
+                <input type="hidden" name="goodId" id="goodId" value="<#if goodOrder.goodId??>${goodOrder.goodId}</#if>">
+                <input type="hidden" name="addressId" id="addressId" value="<#if goodOrder.addressId??>${goodOrder.addressId}</#if>">
+                <input type="hidden" name="score" id="score" value="<#if goodOrder.score??>${goodOrder.score}</#if>">
                 <input type="hidden" name="orderNum" id="orderNum" value="<#if goodOrder.orderNum??>${goodOrder.orderNum}</#if>">
                 <input type="hidden" name="userId" id="userId" value="<#if goodOrder.userId??>${goodOrder.userId}</#if>">
                 <input type="hidden" name="createTime" id="createTime" value="<#if createTime??>${createTime}</#if>">
