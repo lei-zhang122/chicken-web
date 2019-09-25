@@ -209,7 +209,7 @@ public class GoodOrderController extends BaseController {
         if (goodOrder.getExchangeStatus().equals("2")) {
             WechatUser wechatUser = this.wechatUserService.selectByPrimaryKey(goodOrder.getUserId());
             GoodInfo goodInfo = this.goodInfoService.selectByPrimaryKey(goodOrder.getGoodId());
-            pushMsg(wechatUser.getOpenid(),ContantUtil.INVOKE_URL,goodInfo.getGoodName(),goodOrder.getOrderNum(),goodOrder.getExpressName()+" ("+goodOrder.getExpressNum()+")");
+            pushMsg(wechatUser.getOpenid(), ContantUtil.INVOKE_URL, goodInfo.getGoodName(),goodOrder);
         }
 
         return CallResult.success();
@@ -220,23 +220,25 @@ public class GoodOrderController extends BaseController {
      *
      * @return
      */
-    private ResponseEntity<String> pushMsg(String openid, String url, String goodsName, String orderNum, String express) {
+    private ResponseEntity<String> pushMsg(String openid, String url, String goodName, GoodOrder goodOrder) {
         ResponseEntity<String> responseEntity = null;
         try {
-            String content = "您好，您兑换的奖品" + goodsName + "已经发货，物流信息：" + express + "，您的兑换单号是" + orderNum + "，请登录揍小鸡小程序查看订单详情。";
-            logger.info("开始调用接口，接口地址：{}", url);
+            //String content = "您好，您兑换的奖品" + goodsName + "已经发货，物流信息：" + express + "，您的兑换单号是" + orderNum + "，请登录揍小鸡小程序查看订单详情。";
+            String content = goodName + "@" + goodOrder.getExpressName() + "@" + DateUtil.currentYYYYMMDDHHmmssWithSymbol() + "@" + goodOrder.getOrderNum();
+            logger.info("开始调用发货通知接口，接口地址：{}", url);
             HttpHeaders headers = new HttpHeaders();
             MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
             headers.setContentType(type);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("openid", openid);
             jsonObject.put("content", content);
-            logger.info("调用接口，传入参数{}", jsonObject.toJSONString());
+            jsonObject.put("type", "2");
+            logger.info("调用发货通知接口，传入参数{}", jsonObject.toJSONString());
             HttpEntity<String> entity = new HttpEntity<>(jsonObject.toJSONString(), headers);
             responseEntity = restTemplate.postForEntity(url, entity, String.class);
-            logger.info("调用接口，返回结果:" + responseEntity.getBody());
+            logger.info("调用发货通知接口，返回结果:" + responseEntity.getBody());
         } catch (Exception e) {
-            logger.info("调用接口失败:{}", e.getMessage());
+            logger.info("调用发货通知接口失败:{}", e.getMessage());
         }
         return responseEntity;
     }

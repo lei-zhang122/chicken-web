@@ -168,8 +168,9 @@ public class WeekPushJob {
             MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
             headers.setContentType(type);
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("openid", openid);
             jsonObject.put("content", content);
+            jsonObject.put("openid", openid);
+            jsonObject.put("type", "3");
             logger.info("调用接口，传入参数{}", jsonObject.toJSONString());
             HttpEntity<String> entity = new HttpEntity<>(jsonObject.toJSONString(), headers);
             responseEntity = restTemplate.postForEntity(url, entity, String.class);
