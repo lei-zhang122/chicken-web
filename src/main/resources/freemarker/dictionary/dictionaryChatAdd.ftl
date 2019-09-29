@@ -20,12 +20,17 @@
             </dd>
             <dt>内容：</dt>
             <dd>
-                <input type="text" name="dictContent" id="dictContent" maxlength="100"  value="<#if dictionary.dictContent??>${dictionary.dictContent}</#if>">
+                <input type="text" name="dictContent" id="dictContent" maxlength="500"  value="<#if dictionary.dictContent??>${dictionary.dictContent}</#if>">
             </dd>
             <dt>排序：</dt>
             <dd>
                 <input type="text" name="dictOrder" id="dictOrder" maxlength="10" onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
                        onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " value="<#if dictionary.dictOrder??>${dictionary.dictOrder!c}</#if>">
+            </dd>
+            <dt>分类：</dt>
+            <dd>
+                <input type="text" name="differentFlag" id="differentFlag" maxlength="10" onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
+                       onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " value="<#if dictionary.differentFlag??>${dictionary.differentFlag!c}</#if>">
             </dd>
             <dt>状态：</dt>
             <dd>
@@ -40,7 +45,7 @@
             </dd>
             <dt>描述：</dt>
             <dd>
-                <textarea name="dictDetail" id="dictDetail"><#if dictionary.dictDetail??>${dictionary.dictDetail}</#if></textarea>
+                <textarea name="dictDetail" id="dictDetail" maxlength="200"><#if dictionary.dictDetail??>${dictionary.dictDetail}</#if></textarea>
             </dd>
             <dt>
                 <input type="hidden" name="id" id="id" value="<#if dictionary.id??>${dictionary.id}</#if>">
@@ -58,5 +63,5 @@
 </body>
 <script src="../../js/jquery/jquery.min.3.3.1.js"></script>
 <script src="../../js/js.js"></script>
-<script src="../../js/dictionary.js"></script>
+<script src="../../js/dictionaryBychat.js"></script>
 </html>

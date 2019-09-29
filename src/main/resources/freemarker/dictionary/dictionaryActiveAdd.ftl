@@ -12,7 +12,7 @@
 <body>
 <div class="main-container">
     <form class="form" action="" method="">
-        <h2><a href="/dictionary/dictionaryNotifyPage">通告内容管理</a> / 通告内容维护</h2>
+        <h2><a href="/dictionary/dictionaryActivePage">活动规则管理</a> / 活动规则维护</h2>
         <dl>
             <dt>标题：</dt>
             <dd>
@@ -26,6 +26,11 @@
             <dd>
                 <input type="text" name="dictOrder" id="dictOrder" maxlength="10" onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
                        onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " value="<#if dictionary.dictOrder??>${dictionary.dictOrder!c}</#if>">
+            </dd>
+            <dt>分类：</dt>
+            <dd>
+                <input type="text" name="differentFlag" id="differentFlag" maxlength="10" onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
+                       onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " value="<#if dictionary.differentFlag??>${dictionary.differentFlag!c}</#if>">
             </dd>
             <dt>状态：</dt>
             <dd>
@@ -48,7 +53,7 @@
                 <input type="hidden" name="dictType" id="dictType" value="<#if dictionary.dictType??>${dictionary.dictType}</#if>">
                 <input type="hidden" name="createUser" id="createUser" value="<#if dictionary.createUser??>${dictionary.createUser}</#if>">
                 <input type="hidden" name="createTime" id="createTime" value="<#if createTime??>${createTime}</#if>">
-                <input type="button" onclick="javascript:window.location.href='/dictionary/dictionaryNotifyPage'" class="btn" value="返回">
+                <input type="button" onclick="javascript:window.location.href='/dictionary/dictionaryActivePage'" class="btn" value="返回">
                 &nbsp;&nbsp;
                 <input type="button" class="btn btn-primary" value="提交" onclick="TT.dictionary.addDictionary(this)"">
             </dt>
@@ -58,5 +63,5 @@
 </body>
 <script src="../../js/jquery/jquery.min.3.3.1.js"></script>
 <script src="../../js/js.js"></script>
-<script src="../../js/dictionary.js"></script>
+<script src="../../js/dictionaryBychat.js"></script>
 </html>
