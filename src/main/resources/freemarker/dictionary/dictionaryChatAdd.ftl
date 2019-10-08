@@ -63,5 +63,5 @@
 </body>
 <script src="../../js/jquery/jquery.min.3.3.1.js"></script>
 <script src="../../js/js.js"></script>
-<script src="../../js/dictionaryBychat.js"></script>
+<script src="../../js/dictionaryByChat.js"></script>
 </html>
