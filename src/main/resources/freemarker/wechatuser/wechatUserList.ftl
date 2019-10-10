@@ -29,6 +29,7 @@
         <thead>
         <tr>
             <td>序号</td>
+            <td class="text-left">ID</td>
             <td class="text-left">用户昵称</td>
             <td class="text-left">OPENID</td>
             <td class="text-left">注册来源</td>
@@ -44,6 +45,7 @@
         <#list list as item>
         <tr>
             <td>${item_index + 1}</td>
+            <td class="text-left"><#if item.id??>${item.id}</#if></td>
             <td class="text-left"><#if item.nick_name??>${item.nick_name}</#if></td>
             <td class="text-left"><#if item.openid??>${item.openid}</#if></td>
             <td class="text-left"><#if item.reg_source??>${item.reg_source}</#if></td>
