@@ -35,14 +35,6 @@ public class WechatUserUtils {
             return "openId不能为空";
         }
 
-        if (StringUtils.isBlank(wechatUserRequest.getRegSource())) {
-            return "注册来源不能为空";
-        }
-
-        if (StringUtils.isBlank(wechatUserRequest.getUnionid())) {
-            return "unionid不能为空";
-        }
-
         return null;
     }
 }
