@@ -133,9 +133,9 @@ public class WeekPushJob {
 
                         if (diff < 50) {
                             Integer diffVal = accountUser.getBalance().intValue() - virtual;
-                            content = "您还差" + diffVal + "大力丸就可以兑换" + goodInfo.get("good_name") + "了哦，快来赚取大力丸换奖品吧";
+                            content = "您还差" + diffVal + "元气值就可以兑换" + goodInfo.get("good_name") + "了哦，快来赚取元气值换奖品吧";
                         } else {
-                            content = "您现在还有" + accountUser.getBalance().intValue() + "个大力丸，可以直接兑换" + goodInfo.get("good_name") + "啦，快来兑换吧！";
+                            content = "您现在还有" + accountUser.getBalance().intValue() + "个元气值，可以直接兑换" + goodInfo.get("good_name") + "啦，快来兑换吧！";
                         }
 
                         pushMsg(openid, ContantUtil.INVOKE_URL, content);
